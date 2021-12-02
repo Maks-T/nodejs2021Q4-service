@@ -37,6 +37,10 @@ module.exports = class Application {
 
         this._parseUrl(req, res);
 
+        if (!req.params) {
+          req.emit('error', new Error('SOURSE NOT EXIST'));
+        }
+
         const emitted = this.emitter.emit(
           this._getRouteMask(req.pathname, req.method),
           req,
@@ -52,10 +56,15 @@ module.exports = class Application {
         switch (err.message) {
           case 'BROKEN BODY': {
             //TODO CONSTANTS
-            res.status(500).send(`Internal Server ${err}`);
+            res.status(500).send(`Internal Server Error: ${err.message}`);
+            break;
           }
           case 'SOURSE NOT EXIST': {
-            res.status(400).send(`${err}`);
+            res.status(400).send(`Error: ${err.message}`);
+            break;
+          }
+          default: {
+            res.status(500).send(`Internal Server Error: ${err.message}`);
           }
         }
       });
@@ -93,8 +102,6 @@ module.exports = class Application {
           console.log('req.url', req.url);
           req.pathname = params.mask;
           req.params = params;
-        } else {
-          req.emit('error', new Error('SOURSE NOT EXIST'));
         }
       }
     });
