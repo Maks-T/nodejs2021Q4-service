@@ -21,7 +21,7 @@ module.exports = class ParseRoute {
     path = this._clearSeparator(path);
     const arrPath = path.split(this.separator);
 
-    if (arrPath.length !== this.arrMask.length) return false;
+    if (arrPath.length !== this.arrMask.length) return null;
 
     this._objPath = { mask: this.mask };
 
@@ -30,9 +30,8 @@ module.exports = class ParseRoute {
         this.arrMask[i] = this.arrMask[i].slice(1);
         this._objPath[this.arrMask[i]] = arrPath[i];
       } else if (this.arrMask[i] === arrPath[i]) {
-        //this._objPath[this.arrMask[i]] = arrPath[i];
       } else {
-        return false;
+        return null;
       }
     }
 
