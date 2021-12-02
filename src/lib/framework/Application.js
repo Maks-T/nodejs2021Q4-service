@@ -28,12 +28,14 @@ module.exports = class Application {
 
       req.on('end', () => {
         req.body = body;
+
         this.middlewares.forEach((middleware) => {
           middleware(req, res);
         });
+
         console.log(req.body);
 
-        this._parseUrl(req);
+        this._parseUrl(req, res);
 
         const emitted = this.emitter.emit(
           this._getRouteMask(req.pathname, req.method),
@@ -43,6 +45,18 @@ module.exports = class Application {
 
         if (!emitted) {
           res.end();
+        }
+      });
+
+      req.on('error', (err) => {
+        switch (err.message) {
+          case 'BROKEN BODY': {
+            //TODO CONSTANTS
+            res.status(500).send(`Internal Server ${err}`);
+          }
+          case 'SOURSE NOT EXIST': {
+            res.status(400).send(`${err}`);
+          }
         }
       });
     });
@@ -79,6 +93,8 @@ module.exports = class Application {
           console.log('req.url', req.url);
           req.pathname = params.mask;
           req.params = params;
+        } else {
+          req.emit('error', new Error('SOURSE NOT EXIST'));
         }
       }
     });

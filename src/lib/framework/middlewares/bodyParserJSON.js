@@ -1,5 +1,10 @@
 module.exports = (req, res) => {
-  if (req.body) {
-    req.body = JSON.parse(req.body);
+  try {
+    if (req.body) {
+      const parsedBody = JSON.parse(req.body);
+      req.body = parsedBody;
+    }
+  } catch (e) {
+    req.emit('error', new Error('BROKEN BODY'));
   }
 };

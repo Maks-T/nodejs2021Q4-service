@@ -13,9 +13,10 @@ const status = require('./lib/framework/middlewares/status');
 
 const app = new Application();
 
+app.use(status); //first
 app.use(parseJSON);
 app.use(bodyParserJSON);
-app.use(status);
+
 //app.use(parseUrl("http://127.0.0.1:4000"));
 
 app.addRouter(userRouter);

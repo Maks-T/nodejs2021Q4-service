@@ -11,7 +11,8 @@ const getAll = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  if (req.params) {
+  try {
+    if (!req.params) throw new Error('No req.params');
     const userId = req.params.userId;
     if (isIdValid(userId)) {
       const foundUser = await usersService.getUser(userId);
@@ -26,7 +27,7 @@ const getUser = async (req, res) => {
     } else {
       res.status(400).send({ message: `User id = ${userId} is not valid` });
     }
-  } else {
+  } catch (e) {
     res.status(500).send({ message: `Internal Server Error [getUser]` });
   }
 };
@@ -38,4 +39,26 @@ const createUser = async (req, res) => {
   res.status(201).send(User.toResponse(createdUser));
 };
 
-module.exports = { getAll, getUser, createUser };
+const putUser = async (req, res) => {
+  try {
+    if (!req.params) throw new Error('No req.params');
+    const userId = req.params.userId;
+    if (isIdValid(userId)) {
+      const foundUser = await usersService.putUser(userId, req.body);
+
+      if (foundUser) {
+        res.status(200).send(User.toResponse(foundUser));
+      } else {
+        res
+          .status(404)
+          .send({ message: `User with id = ${userId} was not found` });
+      }
+    } else {
+      res.status(400).send({ message: `User id = ${userId} is not valid` });
+    }
+  } catch (e) {
+    res.status(500).send({ message: `Internal Server Error [putUser] ${e}` });
+  }
+};
+
+module.exports = { getAll, getUser, createUser, putUser };

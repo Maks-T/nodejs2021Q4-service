@@ -8,8 +8,6 @@ const getAll = async () => {
 const getUser = async (id) => {
   foundUser = db.find((user) => user.id === id);
 
-  if (!foundUser) return false;
-
   return foundUser;
 };
 
@@ -19,4 +17,16 @@ const createUser = async (user) => {
   return user.data;
 };
 
-module.exports = { getAll, getUser, createUser };
+const putUser = async (id, userData) => {
+  indexUser = db.findIndex((user) => user.id === id);
+
+  if (indexUser === -1) return null;
+
+  delete userData.id;
+
+  Object.assign(db[indexUser], userData);
+
+  return db[indexUser];
+};
+
+module.exports = { getAll, getUser, createUser, putUser };
