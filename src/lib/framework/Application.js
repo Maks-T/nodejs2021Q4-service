@@ -1,6 +1,6 @@
 const http = require('http');
 const EventEmitter = require('events');
-const ParseRoute = require('./../parse-route');
+const ParseRoute = require('../parse-route');
 
 module.exports = class Application {
   constructor() {
@@ -33,8 +33,6 @@ module.exports = class Application {
           middleware(req, res);
         });
 
-        console.log(req.body);
-
         this._parseUrl(req, res);
 
         if (!req.params) {
@@ -42,7 +40,7 @@ module.exports = class Application {
         }
 
         const emitted = this.emitter.emit(
-          this._getRouteMask(req.pathname, req.method),
+          Application._getRouteMask(req.pathname, req.method),
           req,
           res
         );
@@ -54,7 +52,7 @@ module.exports = class Application {
 
       req.on('error', (err) => {
         switch (err.message) {
-          //TODO CONSTANTS
+          // TODO CONSTANTS
           case 'BROKEN BODY': {
             res.status(500).send(`Internal Server Error: ${err.message}`);
             break;
@@ -79,28 +77,25 @@ module.exports = class Application {
         this.endpoints.push({ path, method });
         const handler = endpoint[method];
 
-        this.emitter.on(this._getRouteMask(path, method), (req, res) => {
+        this.emitter.on(Application._getRouteMask(path, method), (req, res) => {
           handler(req, res);
         });
       });
     });
   }
 
-  _getRouteMask(path, method) {
+  static _getRouteMask(path, method) {
     return `[${path}]:[${method}]`;
   }
 
   _parseUrl(req) {
-    console.log('endpoints APP: ', this.endpoints);
     this.endpoints.forEach((endpoint) => {
       if (endpoint.method === req.method) {
         const parseRoute = new ParseRoute(endpoint.path);
 
         const params = parseRoute.match(req.url);
 
-        console.log('endpoint: ', endpoint, 'match - ', params);
         if (params) {
-          console.log('req.url', req.url);
           req.pathname = params.mask;
           req.params = params;
         }

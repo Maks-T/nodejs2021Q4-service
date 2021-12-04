@@ -1,4 +1,4 @@
-module.exports = (req, res) => {
+module.exports = (req) => {
   try {
     if (req.body) {
       const parsedBody = JSON.parse(req.body);

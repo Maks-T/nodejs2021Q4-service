@@ -3,7 +3,7 @@ mask ='/p1/:id1/p2/:id2'
 route = '/p1/11111/p2/22222'
 
 return { id1: '1111', id2: '2222' }
-else return FALSE
+else return null
 
 */
 
@@ -17,8 +17,8 @@ module.exports = class ParseRoute {
     this.arrMask = mask.split(separator);
   }
 
-  match = (path) => {
-    path = this._clearSeparator(path);
+  match(pathUrl) {
+    const path = this._clearSeparator(pathUrl);
     const arrPath = path.split(this.separator);
 
     if (arrPath.length !== this.arrMask.length) return null;
@@ -36,9 +36,9 @@ module.exports = class ParseRoute {
     }
 
     return this._objPath;
-  };
+  }
 
-  _clearSeparator = (path) => {
+  _clearSeparator(path) {
     if (path[0] === this.separator) {
       path = path.slice(1, path.length);
     }
@@ -49,5 +49,5 @@ module.exports = class ParseRoute {
     }
 
     return path;
-  };
+  }
 };

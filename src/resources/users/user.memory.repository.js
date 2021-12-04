@@ -1,12 +1,9 @@
 const db = [];
 
-const getAll = async () => {
-  // TODO: mock implementation. should be replaced during task development
-  return db;
-};
+const getAll = async () => db;
 
 const getUser = async (id) => {
-  foundUser = db.find((user) => user.id === id);
+  const foundUser = db.find((user) => user.id === id);
 
   return foundUser;
 };
@@ -18,19 +15,17 @@ const createUser = async (userData) => {
 };
 
 const putUser = async (id, userData) => {
-  indexUser = db.findIndex((user) => user.id === id);
+  const indexUser = db.findIndex((user) => user.id === id);
 
   if (indexUser === -1) return null;
-
-  delete userData.id;
 
   Object.assign(db[indexUser], userData);
 
   return db[indexUser];
 };
 
-const deleteUser = async (id, userData) => {
-  indexUser = db.findIndex((user) => user.id === id);
+const deleteUser = async (id) => {
+  const indexUser = db.findIndex((user) => user.id === id);
 
   if (indexUser === -1) return null;
 

@@ -1,6 +1,3 @@
-//const router = require('express').Router();
-const User = require('./user.model');
-
 const usersController = require('./user.controller');
 
 const Router = require('../../lib/framework/Router');

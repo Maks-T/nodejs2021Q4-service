@@ -3,7 +3,7 @@ module.exports = class Router {
     this.endpoints = {};
   }
 
-  request(method = 'GET', path, handler) {
+  request(method, path, handler) {
     if (!this.endpoints[path]) {
       this.endpoints[path] = {};
     }

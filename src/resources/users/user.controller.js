@@ -13,7 +13,7 @@ const getAll = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     if (!req.params) throw new Error('NOT PARAMS');
-    const userId = req.params.userId;
+    const { userId } = req.params;
     if (isIdValid(userId)) {
       const foundUser = await usersService.getUser(userId);
 
@@ -35,19 +35,20 @@ const getUser = async (req, res) => {
 const createUser = async (req, res) => {
   const user = new User(req.body);
   const createdUser = await usersService.createUser(user.data);
-  console.log('createdUser', createdUser);
+
   res.status(201).send(User.toResponse(createdUser));
 };
 
 const putUser = async (req, res) => {
   try {
     if (!req.params) throw new Error('NOT PARAMS');
-    const userId = req.params.userId;
+    const { userId } = req.params;
     if (isIdValid(userId)) {
-      const foundUser = await usersService.putUser(userId, req.body);
+      req.body.id = userId;
+      const updateUser = await usersService.putUser(userId, req.body);
 
-      if (foundUser) {
-        res.status(200).send(User.toResponse(foundUser));
+      if (updateUser) {
+        res.status(200).send(User.toResponse(updateUser));
       } else {
         res
           .status(404)
@@ -64,7 +65,7 @@ const putUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     if (!req.params) throw new Error('NOT PARAMS');
-    const userId = req.params.userId;
+    const { userId } = req.params;
     if (isIdValid(userId)) {
       const deletedUser = await usersService.deleteUser(userId);
 
