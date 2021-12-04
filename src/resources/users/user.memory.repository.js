@@ -11,10 +11,10 @@ const getUser = async (id) => {
   return foundUser;
 };
 
-const createUser = async (user) => {
-  db.push(user.data);
+const createUser = async (userData) => {
+  db.push(userData);
 
-  return user.data;
+  return db[db.length - 1];
 };
 
 const putUser = async (id, userData) => {
@@ -29,4 +29,14 @@ const putUser = async (id, userData) => {
   return db[indexUser];
 };
 
-module.exports = { getAll, getUser, createUser, putUser };
+const deleteUser = async (id, userData) => {
+  indexUser = db.findIndex((user) => user.id === id);
+
+  if (indexUser === -1) return null;
+
+  const deletedUser = db.splice(indexUser, 1);
+
+  return deletedUser;
+};
+
+module.exports = { getAll, getUser, createUser, putUser, deleteUser };

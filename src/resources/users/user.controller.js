@@ -12,7 +12,7 @@ const getAll = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    if (!req.params) throw new Error('No req.params');
+    if (!req.params) throw new Error('NOT PARAMS');
     const userId = req.params.userId;
     if (isIdValid(userId)) {
       const foundUser = await usersService.getUser(userId);
@@ -34,14 +34,14 @@ const getUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   const user = new User(req.body);
-  const createdUser = await usersService.createUser(user);
+  const createdUser = await usersService.createUser(user.data);
   console.log('createdUser', createdUser);
   res.status(201).send(User.toResponse(createdUser));
 };
 
 const putUser = async (req, res) => {
   try {
-    if (!req.params) throw new Error('No req.params');
+    if (!req.params) throw new Error('NOT PARAMS');
     const userId = req.params.userId;
     if (isIdValid(userId)) {
       const foundUser = await usersService.putUser(userId, req.body);
@@ -61,4 +61,26 @@ const putUser = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getUser, createUser, putUser };
+const deleteUser = async (req, res) => {
+  try {
+    if (!req.params) throw new Error('NOT PARAMS');
+    const userId = req.params.userId;
+    if (isIdValid(userId)) {
+      const deletedUser = await usersService.deleteUser(userId);
+
+      if (deletedUser) {
+        res.status(204).send();
+      } else {
+        res
+          .status(404)
+          .send({ message: `User with id = ${userId} was not found` });
+      }
+    } else {
+      res.status(400).send({ message: `User id = ${userId} is not valid` });
+    }
+  } catch (e) {
+    res.status(500).send({ message: `Internal Server Error [deleteUser]` });
+  }
+};
+
+module.exports = { getAll, getUser, createUser, putUser, deleteUser };

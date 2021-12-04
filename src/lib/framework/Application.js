@@ -54,8 +54,8 @@ module.exports = class Application {
 
       req.on('error', (err) => {
         switch (err.message) {
+          //TODO CONSTANTS
           case 'BROKEN BODY': {
-            //TODO CONSTANTS
             res.status(500).send(`Internal Server Error: ${err.message}`);
             break;
           }
@@ -63,6 +63,7 @@ module.exports = class Application {
             res.status(400).send(`Error: ${err.message}`);
             break;
           }
+
           default: {
             res.status(500).send(`Internal Server Error: ${err.message}`);
           }
