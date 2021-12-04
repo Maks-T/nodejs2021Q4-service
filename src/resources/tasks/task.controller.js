@@ -1,16 +1,19 @@
-const tasksService = require('./task.service');
-const boardsService = require('../boards/board.service');
+const { StatusCodes } = require("http-status-codes");
+const tasksService = require("./task.service");
+const boardsService = require("../boards/board.service");
 
-const Task = require('./task.model');
-const { isIdValid } = require('../../lib/validation');
+const Task = require("./task.model");
+const { isIdValid } = require("../../lib/validation");
 
 const _isBoardFound = async (req, res, handlerTask) => {
-  if (!req.params) throw new Error('NOT PARAMS');
+  if (!req.params) throw new Error("NOT PARAMS");
 
   const { boardId } = req.params;
 
   if (!isIdValid(boardId)) {
-    res.status(400).send({ message: `Board id = ${boardId} is not valid` });
+    res
+      .status(StatusCodes.BAD_REQUEST)
+      .send({ message: `Board id = ${boardId} is not valid` });
   } else {
     const foundBoard = await boardsService.getBoard(boardId);
 
@@ -18,7 +21,7 @@ const _isBoardFound = async (req, res, handlerTask) => {
       handlerTask();
     } else {
       res
-        .status(404)
+        .status(StatusCodes.NOT_FOUND)
         .send({ message: `Board with id = ${boardId} was not found` });
     }
   }
@@ -28,7 +31,7 @@ const getAll = async (req, res) => {
   _isBoardFound(req, res, async () => {
     const allTasks = await tasksService.getAll();
 
-    res.status(200).send(allTasks);
+    res.status(StatusCodes.OK).send(allTasks);
   });
 };
 
@@ -41,18 +44,22 @@ const getTask = async (req, res) => {
         const foundTask = await tasksService.getTask(taskId);
 
         if (foundTask) {
-          res.status(200).send(foundTask);
+          res.status(StatusCodes.OK).send(foundTask);
         } else {
           res
-            .status(404)
+            .status(StatusCodes.NOT_FOUND)
             .send({ message: `Task with id = ${taskId} was not found` });
         }
       } else {
-        res.status(400).send({ message: `Task id = ${taskId} is not valid` });
+        res
+          .status(StatusCodes.BAD_REQUEST)
+          .send({ message: `Task id = ${taskId} is not valid` });
       }
     });
   } catch (e) {
-    res.status(500).send({ message: `Internal Server Error [getTask] ${e}` });
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send({ message: `Internal Server Error [getTask] ${e}` });
   }
 };
 
@@ -65,10 +72,12 @@ const createTask = async (req, res) => {
       taskData.boardId = req.params.boardId;
       const createdTask = await tasksService.createTask(taskData);
 
-      res.status(201).send(createdTask);
+      res.status(StatusCodes.CREATED).send(createdTask);
     });
   } catch (e) {
-    res.status(500).send({ message: `Internal Server Error [postTask] ${e}` });
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send({ message: `Internal Server Error [postTask] ${e}` });
   }
 };
 
@@ -83,18 +92,22 @@ const putTask = async (req, res) => {
         const updateTask = await tasksService.putTask(taskId, req.body);
 
         if (updateTask) {
-          res.status(200).send(updateTask);
+          res.status(StatusCodes.OK).send(updateTask);
         } else {
           res
-            .status(404)
+            .status(StatusCodes.NOT_FOUND)
             .send({ message: `Task with id = ${taskId} was not found` });
         }
       } else {
-        res.status(400).send({ message: `Task id = ${taskId} is not valid` });
+        res
+          .status(StatusCodes.BAD_REQUEST)
+          .send({ message: `Task id = ${taskId} is not valid` });
       }
     });
   } catch (e) {
-    res.status(500).send({ message: `Internal Server Error [putTask] ${e}` });
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send({ message: `Internal Server Error [putTask] ${e}` });
   }
 };
 
@@ -107,19 +120,21 @@ const deleteTask = async (req, res) => {
         const deletedTask = await tasksService.deleteTask(taskId);
 
         if (deletedTask) {
-          res.status(204).send();
+          res.status(StatusCodes.NO_CONTENT).send();
         } else {
           res
-            .status(404)
+            .status(StatusCodes.NOT_FOUND)
             .send({ message: `Task with id = ${taskId} was not found` });
         }
       } else {
-        res.status(400).send({ message: `Task id = ${taskId} is not valid` });
+        res
+          .status(StatusCodes.BAD_REQUEST)
+          .send({ message: `Task id = ${taskId} is not valid` });
       }
     });
   } catch (e) {
     res
-      .status(500)
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .send({ message: `Internal Server Error [deleteTask] ${e}` });
   }
 };
