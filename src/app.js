@@ -9,6 +9,7 @@ const status = require('./lib/framework/middlewares/status');
 
 const userRouter = require('./resources/users/user.router');
 const boardRouter = require('./resources/boards/board.router');
+const taskRouter = require('./resources/tasks/task.router');
 
 const app = new Application();
 
@@ -24,5 +25,6 @@ userRouter.get('/doc', handlerSwagger);
 
 app.addRouter(userRouter);
 app.addRouter(boardRouter);
+app.addRouter(taskRouter);
 
 module.exports = app;

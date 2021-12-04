@@ -31,11 +31,15 @@ const getBoard = async (req, res) => {
 };
 
 const createBoard = async (req, res) => {
-  const board = new Board(req.body);
+  try {
+    const board = new Board(req.body);
 
-  const createdBoard = await boardsService.createBoard(board.data);
+    const createdBoard = await boardsService.createBoard(board.data);
 
-  res.status(201).send(createdBoard);
+    res.status(201).send(createdBoard);
+  } catch (e) {
+    res.status(500).send({ message: `Internal Server Error [postBoard]` });
+  }
 };
 
 const putBoard = async (req, res) => {

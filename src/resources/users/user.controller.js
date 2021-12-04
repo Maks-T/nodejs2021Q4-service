@@ -33,10 +33,14 @@ const getUser = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  const user = new User(req.body);
-  const createdUser = await usersService.createUser(user.data);
+  try {
+    const user = new User(req.body);
+    const createdUser = await usersService.createUser(user.data);
 
-  res.status(201).send(User.toResponse(createdUser));
+    res.status(201).send(User.toResponse(createdUser));
+  } catch (e) {
+    res.status(500).send({ message: `Internal Server Error [postUser]` });
+  }
 };
 
 const putUser = async (req, res) => {
