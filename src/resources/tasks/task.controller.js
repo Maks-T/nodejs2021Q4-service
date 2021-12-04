@@ -25,9 +25,11 @@ const _isBoardFound = async (req, res, handlerTask) => {
 };
 
 const getAll = async (req, res) => {
-  const allTasks = await tasksService.getAll();
+  _isBoardFound(req, res, async () => {
+    const allTasks = await tasksService.getAll();
 
-  res.status(200).send(allTasks);
+    res.status(200).send(allTasks);
+  });
 };
 
 const getTask = async (req, res) => {

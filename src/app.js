@@ -18,10 +18,11 @@ app.use(parseJSON);
 app.use(bodyParserJSON);
 
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
-
 const handlerSwagger = (swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 userRouter.get('/doc', handlerSwagger);
+boardRouter.get('/doc', handlerSwagger);
+taskRouter.get('/doc', handlerSwagger);
 
 app.addRouter(userRouter);
 app.addRouter(boardRouter);

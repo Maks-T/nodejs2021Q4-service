@@ -1,4 +1,6 @@
 const boardsService = require('./board.service');
+const tasksService = require("../tasks/task.service");
+
 const Board = require('./board.model');
 const { isIdValid } = require('../../lib/validation');
 
@@ -73,6 +75,14 @@ const deleteBoard = async (req, res) => {
       const deletedBoard = await boardsService.deleteBoard(boardId);
 
       if (deletedBoard) {
+        const allTasks = await tasksService.getAll();
+
+        const deleteTasks = allTasks.filter((task) => task.boardId === boardId);
+
+        deleteTasks.forEach((task) => {
+          tasksService.deleteTask(task.id);
+        });
+
         res.status(204).send();
       } else {
         res

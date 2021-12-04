@@ -1,4 +1,5 @@
 const usersService = require('./user.service');
+const tasksService = require('../tasks/task.service');
 const User = require('./user.model');
 const { isIdValid } = require('../../lib/validation');
 
@@ -34,7 +35,10 @@ const getUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
+    if (req.body.id) delete req.body.id;
+
     const user = new User(req.body);
+
     const createdUser = await usersService.createUser(user.data);
 
     res.status(201).send(User.toResponse(createdUser));
@@ -74,6 +78,18 @@ const deleteUser = async (req, res) => {
       const deletedUser = await usersService.deleteUser(userId);
 
       if (deletedUser) {
+        const allTasks = await tasksService.getAll();
+
+        const updateTasks = allTasks.filter((task) => task.userId === userId);
+
+        updateTasks.forEach((task) => {
+          const updateTask = task;
+
+          updateTask.userId = null;
+
+          tasksService.putTask(updateTask);
+        });
+
         res.status(204).send();
       } else {
         res
