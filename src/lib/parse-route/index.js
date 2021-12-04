@@ -10,11 +10,10 @@ else return null
 module.exports = class ParseRoute {
   constructor(mask, separator = '/') {
     this.separator = separator;
+
     this.mask = mask;
 
-    mask = this._clearSeparator(mask);
-
-    this.arrMask = mask.split(separator);
+    this.arrMask = this._clearSeparator(mask).split(separator);
   }
 
   match(pathUrl) {
@@ -25,11 +24,12 @@ module.exports = class ParseRoute {
 
     this._objPath = { mask: this.mask };
 
-    for (let i = 0; i < this.arrMask.length; i++) {
+    for (let i = 0; i < this.arrMask.length; i += 1) {
       if (this.arrMask[i][0] === ':') {
         this.arrMask[i] = this.arrMask[i].slice(1);
         this._objPath[this.arrMask[i]] = arrPath[i];
       } else if (this.arrMask[i] === arrPath[i]) {
+        //
       } else {
         return null;
       }
@@ -38,7 +38,8 @@ module.exports = class ParseRoute {
     return this._objPath;
   }
 
-  _clearSeparator(path) {
+  _clearSeparator(pathUrl) {
+    let path = pathUrl;
     if (path[0] === this.separator) {
       path = path.slice(1, path.length);
     }

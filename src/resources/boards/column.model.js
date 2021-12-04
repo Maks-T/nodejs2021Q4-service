@@ -9,8 +9,11 @@ class Column {
 
   static createColumns(columns) {
     return columns.map((column, index) => {
-      column.order = index + 1;
-      return new Column(column);
+      const newColumn = column;
+
+      newColumn.order = index + 1;
+
+      return new Column(newColumn);
     });
   }
 }
