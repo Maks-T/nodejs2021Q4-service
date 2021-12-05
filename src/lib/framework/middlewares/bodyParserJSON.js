@@ -1,3 +1,5 @@
+const ERROR_APP = require("../constants");
+
 module.exports = (req) => {
   try {
     if (req.body) {
@@ -5,6 +7,6 @@ module.exports = (req) => {
       req.body = parsedBody;
     }
   } catch (e) {
-    req.emit('error', new Error('BROKEN BODY'));
+    req.emit('error', new Error(ERROR_APP.BROKEN_BODY));
   }
 };
