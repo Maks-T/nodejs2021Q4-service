@@ -5,12 +5,10 @@ import boardsService from '../boards/board.service';
 import isIdValid from '../../common/validaty';
 import { ITaskData, Task } from './task.model';
 
-type HandlerTask = (req: Request, res: Response) => void;
-
 const isBoardFound = async (
   req: Request,
   res: Response,
-  handlerTask: HandlerTask
+  handlerTask: () => void
 ) => {
   const { boardId } = req.params;
 
@@ -22,7 +20,7 @@ const isBoardFound = async (
     const foundBoard = await boardsService.getBoard(boardId);
 
     if (foundBoard) {
-      handlerTask(req, res);
+      handlerTask();
     } else {
       res
         .status(StatusCodes.NOT_FOUND)
