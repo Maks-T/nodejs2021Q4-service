@@ -1,22 +1,28 @@
-const { StatusCodes } = require("http-status-codes");
-const boardsService = require("./board.service");
-const tasksService = require("../tasks/task.service");
+import { StatusCodes } from 'http-status-codes';
 
-const Board = require("./board.model");
-const { isIdValid } = require("../../lib/validation");
+import { Request, Response } from 'express';
+import boardService from './board.service';
+import isIdValid from '../../common/validaty';
+import { Board, IBoardData } from './board.model';
+import taskService from '../tasks/task.service';
 
-const getAll = async (req, res) => {
-  const allBoards = await boardsService.getAll();
+const getAll = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const allBoards = await boardService.getAll();
 
-  res.status(StatusCodes.OK).send(allBoards);
+    res.status(StatusCodes.OK).send(allBoards);
+  } catch (e) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send({ message: `Internal Server Error [getAllBoards] ${e}` });
+  }
 };
 
-const getBoard = async (req, res) => {
+const getBoard = async (req: Request, res: Response): Promise<void> => {
   try {
-    if (!req.params) throw new Error("NOT PARAMS");
     const { boardId } = req.params;
     if (isIdValid(boardId)) {
-      const foundBoard = await boardsService.getBoard(boardId);
+      const foundBoard = await boardService.getBoard(boardId);
 
       if (foundBoard) {
         res.status(StatusCodes.OK).send(foundBoard);
@@ -33,31 +39,32 @@ const getBoard = async (req, res) => {
   } catch (e) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [getBoard]` });
+      .send({ message: `Internal Server Error [getBoard] ${e}` });
   }
 };
 
-const createBoard = async (req, res) => {
+const postBoard = async (req: Request, res: Response): Promise<void> => {
   try {
     const board = new Board(req.body);
 
-    const createdBoard = await boardsService.createBoard(board.data);
+    const createdBoard = await boardService.postBoard(<IBoardData>board);
 
     res.status(StatusCodes.CREATED).send(createdBoard);
   } catch (e) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [postBoard]` });
+      .send({ message: `Internal Server Error [postBoard] ${e}` });
   }
 };
 
-const putBoard = async (req, res) => {
+const putBoard = async (req: Request, res: Response): Promise<void> => {
   try {
-    if (!req.params) throw new Error("NOT PARAMS");
     const { boardId } = req.params;
+
     if (isIdValid(boardId)) {
       req.body.id = boardId;
-      const updateBoard = await boardsService.putBoard(boardId, req.body);
+
+      const updateBoard = await boardService.putBoard(boardId, req.body);
 
       if (updateBoard) {
         res.status(StatusCodes.OK).send(updateBoard);
@@ -74,24 +81,23 @@ const putBoard = async (req, res) => {
   } catch (e) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [putBoard] ${e}` });
+      .send({ message: `Internal Server Error [putBoard] ${e} ${e}` });
   }
 };
 
-const deleteBoard = async (req, res) => {
+const deleteBoard = async (req: Request, res: Response): Promise<void> => {
   try {
-    if (!req.params) throw new Error("NOT PARAMS");
     const { boardId } = req.params;
     if (isIdValid(boardId)) {
-      const deletedBoard = await boardsService.deleteBoard(boardId);
+      const deletedBoard = await boardService.deleteBoard(boardId);
 
       if (deletedBoard) {
-        const allTasks = await tasksService.getAll();
+        const allTasks = await taskService.getAll();
 
         const deleteTasks = allTasks.filter((task) => task.boardId === boardId);
 
         deleteTasks.forEach((task) => {
-          tasksService.deleteTask(task.id);
+          taskService.deleteTask(task.id);
         });
 
         res.status(StatusCodes.NO_CONTENT).send();
@@ -112,4 +118,4 @@ const deleteBoard = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getBoard, createBoard, putBoard, deleteBoard };
+export default { getAll, getBoard, postBoard, putBoard, deleteBoard };

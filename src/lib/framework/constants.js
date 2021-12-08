@@ -1,4 +1,0 @@
-module.exports.ERROR_APP = {
-  BROKEN_BODY: 'BROKEN BODY',
-  SOURSE_NOT_EXIST: 'SOURSE NOT EXIST',
-};

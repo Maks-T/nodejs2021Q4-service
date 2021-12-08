@@ -1,13 +1,17 @@
-const { StatusCodes } = require("http-status-codes");
-const tasksService = require("./task.service");
-const boardsService = require("../boards/board.service");
+import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import tasksService from './task.service';
+import boardsService from '../boards/board.service';
+import isIdValid from '../../common/validaty';
+import { ITaskData, Task } from './task.model';
 
-const Task = require("./task.model");
-const { isIdValid } = require("../../lib/validation");
+type HandlerTask = (req: Request, res: Response) => void;
 
-const _isBoardFound = async (req, res, handlerTask) => {
-  if (!req.params) throw new Error("NOT PARAMS");
-
+const isBoardFound = async (
+  req: Request,
+  res: Response,
+  handlerTask: HandlerTask
+) => {
   const { boardId } = req.params;
 
   if (!isIdValid(boardId)) {
@@ -18,7 +22,7 @@ const _isBoardFound = async (req, res, handlerTask) => {
     const foundBoard = await boardsService.getBoard(boardId);
 
     if (foundBoard) {
-      handlerTask();
+      handlerTask(req, res);
     } else {
       res
         .status(StatusCodes.NOT_FOUND)
@@ -27,17 +31,23 @@ const _isBoardFound = async (req, res, handlerTask) => {
   }
 };
 
-const getAll = async (req, res) => {
-  _isBoardFound(req, res, async () => {
-    const allTasks = await tasksService.getAll();
+const getAll = async (req: Request, res: Response) => {
+  try {
+    isBoardFound(req, res, async () => {
+      const allTasks = await tasksService.getAll();
 
-    res.status(StatusCodes.OK).send(allTasks);
-  });
+      res.status(StatusCodes.OK).send(allTasks);
+    });
+  } catch (e) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send({ message: `Internal Server Error [getAllTasks] ${e}` });
+  }
 };
 
-const getTask = async (req, res) => {
+const getTask = async (req: Request, res: Response) => {
   try {
-    _isBoardFound(req, res, async () => {
+    isBoardFound(req, res, async () => {
       const { taskId } = req.params;
 
       if (isIdValid(taskId)) {
@@ -63,14 +73,15 @@ const getTask = async (req, res) => {
   }
 };
 
-const createTask = async (req, res) => {
+const postTask = async (req: Request, res: Response) => {
   try {
-    _isBoardFound(req, res, async () => {
+    isBoardFound(req, res, async () => {
       const task = new Task(req.body);
-      const taskData = task.data;
+
+      const taskData = <ITaskData>task;
 
       taskData.boardId = req.params.boardId;
-      const createdTask = await tasksService.createTask(taskData);
+      const createdTask = await tasksService.postTask(taskData);
 
       res.status(StatusCodes.CREATED).send(createdTask);
     });
@@ -81,9 +92,9 @@ const createTask = async (req, res) => {
   }
 };
 
-const putTask = async (req, res) => {
+const putTask = async (req: Request, res: Response) => {
   try {
-    _isBoardFound(req, res, async () => {
+    isBoardFound(req, res, async () => {
       const { taskId } = req.params;
 
       if (isIdValid(taskId)) {
@@ -111,9 +122,9 @@ const putTask = async (req, res) => {
   }
 };
 
-const deleteTask = async (req, res) => {
+const deleteTask = async (req: Request, res: Response) => {
   try {
-    _isBoardFound(req, res, async () => {
+    isBoardFound(req, res, async () => {
       const { taskId } = req.params;
 
       if (isIdValid(taskId)) {
@@ -139,4 +150,4 @@ const deleteTask = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getTask, createTask, putTask, deleteTask };
+export default { getAll, getTask, postTask, putTask, deleteTask };
