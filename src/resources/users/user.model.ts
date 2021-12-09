@@ -7,6 +7,7 @@ export interface IUserData {
   password?: string;
 }
 
+/** User data models */
 export class User {
   public id;
 
@@ -16,6 +17,10 @@ export class User {
 
   public password;
 
+  /**
+   * Constructor of class User
+   * @param userData - user data }
+   */
   constructor({
     name = 'USER',
     login = 'user',
@@ -27,6 +32,11 @@ export class User {
     this.password = password;
   }
 
+  /**
+   * Returns object user data without password
+   * @param user - user data
+   * @returns object user data without password
+   */
   static toResponse(user: IUserData): IUserData {
     const { id, name, login } = user;
     return { id, name, login };

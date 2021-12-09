@@ -6,6 +6,12 @@ import isIdValid from '../../common/validaty';
 import { Board, IBoardData } from './board.model';
 import taskService from '../tasks/task.service';
 
+/**
+ * Accesses the repository to send all user data without password to client
+ * @param req - object represents the HTTP request
+ * @param res - object represents the HTTP response
+ * @returns a promise object resolves to null
+ */
 const getAll = async (req: Request, res: Response): Promise<void> => {
   try {
     const allBoards = await boardService.getAll();
@@ -18,6 +24,12 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+/**
+ * Accesses the repository to send user data without password to client
+ * @param req - object represents the HTTP request
+ * @param res - object represents the HTTP response
+ * @returns a promise object resolves to null
+ */
 const getBoard = async (req: Request, res: Response): Promise<void> => {
   try {
     const { boardId } = req.params;
@@ -43,6 +55,12 @@ const getBoard = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+/**
+ * Accesses the repository to create and send user data without password to client
+ * @param req - object represents the HTTP request
+ * @param res - object represents the HTTP response
+ * @returns a promise object resolves to null
+ */
 const postBoard = async (req: Request, res: Response): Promise<void> => {
   try {
     const board = new Board(req.body);
@@ -57,6 +75,12 @@ const postBoard = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+/**
+ * Accesses the repository to update and send user data without password to client
+ * @param req - object represents the HTTP request
+ * @param res - object represents the HTTP response
+ * @returns a promise object resolves to null
+ */
 const putBoard = async (req: Request, res: Response): Promise<void> => {
   try {
     const { boardId } = req.params;
@@ -85,6 +109,12 @@ const putBoard = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+/**
+ * Accesses the repository to delete user data and unsubscribe from the user in all tasks
+ * @param req - object represents the HTTP request
+ * @param res - object represents the HTTP response
+ * @returns a promise object resolves to null
+ */
 const deleteBoard = async (req: Request, res: Response): Promise<void> => {
   try {
     const { boardId } = req.params;

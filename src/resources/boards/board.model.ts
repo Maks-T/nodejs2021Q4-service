@@ -7,6 +7,7 @@ export interface IBoardData {
   columns: Column[];
 }
 
+/** Board data models */
 export class Board {
   public id: string;
 
@@ -14,6 +15,10 @@ export class Board {
 
   public columns: Column[];
 
+  /**
+   * Constructor of class Board
+   * @param boardData - board data }
+   */
   constructor({ title = 'board title', columns = [] }: IBoardData) {
     this.id = uuid();
     this.title = title;
