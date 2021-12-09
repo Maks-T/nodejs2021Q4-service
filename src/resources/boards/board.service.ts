@@ -23,7 +23,6 @@ const getBoard = (boardId: string): Promise<IBoardData | undefined> =>
 const postBoard = (boardData: IBoardData): Promise<IBoardData> =>
   boardsRepo.postBoard(boardData);
 
-c;
 const putBoard = (
   boardId: string,
   boardData: IBoardData
