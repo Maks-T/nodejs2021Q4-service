@@ -9,6 +9,8 @@ export interface ITaskData {
   boardId: string | null;
   columnId: string | null;
 }
+
+/** Task data model */
 export class Task {
   public id: string;
 
@@ -24,6 +26,10 @@ export class Task {
 
   public columnId: string | null;
 
+  /**
+   * Constructor of class Task
+   * @param userData - user data }
+   */
   constructor({
     title = 'TASK TITLE',
     order = 0,

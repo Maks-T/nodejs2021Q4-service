@@ -7,7 +7,7 @@ export interface IUserData {
   password?: string;
 }
 
-/** User data models */
+/** User data model */
 export class User {
   public id;
 

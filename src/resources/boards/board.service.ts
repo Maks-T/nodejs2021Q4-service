@@ -23,12 +23,7 @@ const getBoard = (boardId: string): Promise<IBoardData | undefined> =>
 const postBoard = (boardData: IBoardData): Promise<IBoardData> =>
   boardsRepo.postBoard(boardData);
 
-/**
- * Update and return updated board data from the repository
- * @param boardId - identifier of board
- * @param boardData - data board
- * @returns a promise object representing updated board data or null if the board does not exist
- */
+c;
 const putBoard = (
   boardId: string,
   boardData: IBoardData

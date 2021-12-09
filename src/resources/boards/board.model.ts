@@ -7,7 +7,7 @@ export interface IBoardData {
   columns: Column[];
 }
 
-/** Board data models */
+/** Board data model */
 export class Board {
   public id: string;
 

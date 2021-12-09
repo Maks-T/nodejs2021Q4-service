@@ -7,10 +7,10 @@ import { Board, IBoardData } from './board.model';
 import taskService from '../tasks/task.service';
 
 /**
- * Accesses the repository to send all user data without password to client
+ * Accesses the repository to send all task data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
- * @returns a promise object resolves to null
+ * @returns a promise object resolves to void
  */
 const getAll = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -25,10 +25,10 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
 };
 
 /**
- * Accesses the repository to send user data without password to client
+ * Accesses the repository to send task data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
- * @returns a promise object resolves to null
+ * @returns a promise object resolves to void
  */
 const getBoard = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -56,10 +56,10 @@ const getBoard = async (req: Request, res: Response): Promise<void> => {
 };
 
 /**
- * Accesses the repository to create and send user data without password to client
+ * Accesses the repository to create and send task data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
- * @returns a promise object resolves to null
+ * @returns a promise object resolves to void
  */
 const postBoard = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -76,10 +76,10 @@ const postBoard = async (req: Request, res: Response): Promise<void> => {
 };
 
 /**
- * Accesses the repository to update and send user data without password to client
+ * Accesses the repository to update and send task data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
- * @returns a promise object resolves to null
+ * @returns a promise object resolves to void
  */
 const putBoard = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -110,10 +110,10 @@ const putBoard = async (req: Request, res: Response): Promise<void> => {
 };
 
 /**
- * Accesses the repository to delete user data and unsubscribe from the user in all tasks
+ * Accesses the repository to delete task data and unsubscribe from the task in all tasks
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
- * @returns a promise object resolves to null
+ * @returns a promise object resolves to void
  */
 const deleteBoard = async (req: Request, res: Response): Promise<void> => {
   try {

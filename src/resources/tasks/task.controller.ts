@@ -5,11 +5,18 @@ import boardsService from '../boards/board.service';
 import isIdValid from '../../common/validaty';
 import { ITaskData, Task } from './task.model';
 
+/**
+ * Description
+ * @param req - object represents the HTTP request
+ * @param res - object represents the HTTP response
+ * @param handlerTask - callback function which calls if board is founded
+ * @returns a promise object resolves to void
+ */
 const isBoardFound = async (
   req: Request,
   res: Response,
   handlerTask: () => void
-) => {
+): Promise<void> => {
   const { boardId } = req.params;
 
   if (!isIdValid(boardId)) {
@@ -29,7 +36,13 @@ const isBoardFound = async (
   }
 };
 
-const getAll = async (req: Request, res: Response) => {
+/**
+ * Accesses the repository to send all task data without password to client
+ * @param req - object represents the HTTP request
+ * @param res - object represents the HTTP response
+ * @returns a promise object resolves to void
+ */
+const getAll = async (req: Request, res: Response): Promise<void> => {
   try {
     isBoardFound(req, res, async () => {
       const allTasks = await tasksService.getAll();
@@ -43,7 +56,13 @@ const getAll = async (req: Request, res: Response) => {
   }
 };
 
-const getTask = async (req: Request, res: Response) => {
+/**
+ * Accesses the repository to send task data without password to client
+ * @param req - object represents the HTTP request
+ * @param res - object represents the HTTP response
+ * @returns a promise object resolves to void
+ */
+const getTask = async (req: Request, res: Response): Promise<void> => {
   try {
     isBoardFound(req, res, async () => {
       const { taskId } = req.params;
@@ -71,6 +90,12 @@ const getTask = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Accesses the repository to create and send task data without password to client
+ * @param req - object represents the HTTP request
+ * @param res - object represents the HTTP response
+ * @returns a promise object resolves to void
+ */
 const postTask = async (req: Request, res: Response) => {
   try {
     isBoardFound(req, res, async () => {
@@ -90,6 +115,12 @@ const postTask = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Accesses the repository to update and send task data without password to client
+ * @param req - object represents the HTTP request
+ * @param res - object represents the HTTP response
+ * @returns a promise object resolves to void
+ */
 const putTask = async (req: Request, res: Response) => {
   try {
     isBoardFound(req, res, async () => {

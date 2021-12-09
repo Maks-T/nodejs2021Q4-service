@@ -10,7 +10,7 @@ import userService from './user.service';
  * Accesses the repository to send all user data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
- * @returns a promise object resolves to null
+ * @returns a promise object resolves to void
  */
 const getAll = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -30,7 +30,7 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
  * Accesses the repository to send user data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
- * @returns a promise object resolves to null
+ * @returns a promise object resolves to void
  */
 const getUser = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -62,7 +62,7 @@ const getUser = async (req: Request, res: Response): Promise<void> => {
  * Accesses the repository to create and send user data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
- * @returns a promise object resolves to null
+ * @returns a promise object resolves to void
  */
 const postUser = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -84,7 +84,7 @@ const postUser = async (req: Request, res: Response): Promise<void> => {
  * Accesses the repository to update and send user data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
- * @returns a promise object resolves to null
+ * @returns a promise object resolves to void
  */
 const putUser = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -117,7 +117,7 @@ const putUser = async (req: Request, res: Response): Promise<void> => {
  * Accesses the repository to delete user data and unsubscribe from the user in all tasks
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
- * @returns a promise object resolves to null
+ * @returns a promise object resolves to void
  */
 const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
