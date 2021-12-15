@@ -18,7 +18,7 @@ const getBoard = (boardId: string): Promise<IBoardData | undefined> =>
 /**
  * Save and return created board data from the repository
  * @param boardData - data board
- * @returns a promise object representing created board data
+ * @returns a promise object representing created board data or null if the board does not exist
  */
 const postBoard = (boardData: IBoardData): Promise<IBoardData> =>
   boardsRepo.postBoard(boardData);
