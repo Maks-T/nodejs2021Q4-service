@@ -27,7 +27,7 @@ export class Column {
   /**
    * Returns an transformed array of column data
    * @param columns - array of column data
-   * @returns array of column data
+   * @returns array of column object
    */
   static createColumns(columns: IColumnData[]): Column[] {
     return columns.map((column, index) => {

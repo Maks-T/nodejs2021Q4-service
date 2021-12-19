@@ -24,7 +24,8 @@ const postTask = (taskData: ITaskData): Promise<ITaskData> =>
   tasksRepo.postTask(taskData);
 
 /**
- * Save and return created task data from the repository
+ * Save and return updated task data from the repository
+ * @param taskId - identifier of task
  * @param taskData - data task
  * @returns a promise object representing created task data or null if the task does not exist
  */

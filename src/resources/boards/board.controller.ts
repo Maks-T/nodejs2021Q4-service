@@ -7,7 +7,7 @@ import { Board, IBoardData } from './board.model';
 import taskService from '../tasks/task.service';
 
 /**
- * Accesses the repository to send all task data without password to client
+ * Accesses the repository to send all board data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
  * @returns a promise object resolves to void
@@ -25,7 +25,7 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
 };
 
 /**
- * Accesses the repository to send task data without password to client
+ * Accesses the repository to send board data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
  * @returns a promise object resolves to void
@@ -56,7 +56,7 @@ const getBoard = async (req: Request, res: Response): Promise<void> => {
 };
 
 /**
- * Accesses the repository to create and send task data without password to client
+ * Accesses the repository to create and send board data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
  * @returns a promise object resolves to void
@@ -76,7 +76,7 @@ const postBoard = async (req: Request, res: Response): Promise<void> => {
 };
 
 /**
- * Accesses the repository to update and send task data without password to client
+ * Accesses the repository to update and send board data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
  * @returns a promise object resolves to void
@@ -110,7 +110,7 @@ const putBoard = async (req: Request, res: Response): Promise<void> => {
 };
 
 /**
- * Accesses the repository to delete task data and unsubscribe from the task in all tasks
+ * Accesses the repository to delete board data and unsubscribe from the task in all tasks
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
  * @returns a promise object resolves to void

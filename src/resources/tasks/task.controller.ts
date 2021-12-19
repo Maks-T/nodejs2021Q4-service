@@ -151,6 +151,12 @@ const putTask = async (req: Request, res: Response) => {
   }
 };
 
+/**
+ * Accesses the repository to delete task data and unsubscribe from the task in all tasks
+ * @param req - object represents the HTTP request
+ * @param res - object represents the HTTP response
+ * @returns a promise object resolves to void
+ */
 const deleteTask = async (req: Request, res: Response) => {
   try {
     isBoardFound(req, res, async () => {

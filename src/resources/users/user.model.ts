@@ -33,9 +33,9 @@ export class User {
   }
 
   /**
-   * Returns object user data without password
+   * Returns user data data without password
    * @param user - user data
-   * @returns object user data without password
+   * @returns user data data without password
    */
   static toResponse(user: IUserData): IUserData {
     const { id, name, login } = user;
