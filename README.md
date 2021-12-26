@@ -9,7 +9,7 @@
 
 - `git clone https://github.com/Maks-T/nodejs2021Q4-service.git` - clones the repository ;
 - `cd nodejs2021Q4-service` - nodejs2021Q4-service;
-- `git checkout task-5-typescript-basic` - select the `task-5-typescript-basic` branch;
+- `git checkout task-6-logging` - select the `task-6-logging` branch;
 
 ## Installing NPM modules
 
