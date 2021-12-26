@@ -53,6 +53,4 @@ process.on('unhandledRejection', (err: Error) => {
   }, 1500);
 });
 
-throw Error('Oops!');
-
 export default app;
