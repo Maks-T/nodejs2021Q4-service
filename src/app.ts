@@ -11,7 +11,6 @@ import handleLoggerInfo from './middlewares/logging-info-middleware';
 import { handleLoggerError } from './middlewares/logging-error-middleware';
 import WarnLog from './common/warn-log';
 import { logger } from './common/logger';
-import ErrorLog from './common/error-log';
 
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 const app = express();
