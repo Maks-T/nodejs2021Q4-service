@@ -8,7 +8,7 @@ import WarnLog from '../../common/warn-log';
 import IntErrorWrap from '../../common/internal-error-wrapper';
 
 /**
- * Description
+ * Accesses the repository to send all task data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
  * @param handlerTask - callback function which calls if board is founded
