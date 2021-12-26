@@ -9,8 +9,6 @@ const levels = {
 
 const level = Object.keys(levels)[Number(config.LOG_LEVEL)];
 
-console.log('__LEVEL__ :: ', level);
-
 const colors = {
   error: 'red',
   warn: 'yellow',
@@ -21,7 +19,9 @@ winston.addColors(colors);
 
 const format = winston.format.combine(
   winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
-  winston.format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
+  winston.format.printf(
+    (info) => `${info.timestamp} ${info.level}: ${info.message}`
+  )
 );
 
 const transports = [
