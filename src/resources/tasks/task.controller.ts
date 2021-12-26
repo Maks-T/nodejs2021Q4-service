@@ -14,7 +14,7 @@ import IntErrorWrap from '../../common/internal-error-wrapper';
  * @param handlerTask - callback function which calls if board is founded
  * @returns a promise object resolves to void
  */
-const isBoardFound = async (req: Request, res: Response): Promise<void> => {
+const isBoardFound = async (req: Request): Promise<void> => {
   const { boardId } = req.params;
 
   if (!isIdValid(boardId)) {
@@ -25,8 +25,7 @@ const isBoardFound = async (req: Request, res: Response): Promise<void> => {
   } else {
     const foundBoard = await boardsService.getBoard(boardId);
 
-    if (foundBoard) {
-    } else {
+    if (!foundBoard) {
       throw new WarnLog(
         StatusCodes.NOT_FOUND,
         `Board with id = ${boardId} was not found`
@@ -43,7 +42,7 @@ const isBoardFound = async (req: Request, res: Response): Promise<void> => {
  */
 const getAll = async (req: Request, res: Response): Promise<void> => {
   try {
-    await isBoardFound(req, res);
+    await isBoardFound(req);
     const allTasks = await tasksService.getAll();
 
     res.status(StatusCodes.OK).send(allTasks);
@@ -60,7 +59,7 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
  */
 const getTask = async (req: Request, res: Response): Promise<void> => {
   try {
-    await isBoardFound(req, res);
+    await isBoardFound(req);
 
     const { taskId } = req.params;
 
@@ -94,7 +93,7 @@ const getTask = async (req: Request, res: Response): Promise<void> => {
  */
 const postTask = async (req: Request, res: Response) => {
   try {
-    await isBoardFound(req, res);
+    await isBoardFound(req);
 
     const task = new Task(req.body);
 
@@ -118,7 +117,7 @@ const postTask = async (req: Request, res: Response) => {
 
 const putTask = async (req: Request, res: Response) => {
   try {
-    await isBoardFound(req, res);
+    await isBoardFound(req);
 
     const { taskId } = req.params;
 
@@ -155,7 +154,7 @@ const putTask = async (req: Request, res: Response) => {
 
 const deleteTask = async (req: Request, res: Response) => {
   try {
-    await isBoardFound(req, res);
+    await isBoardFound(req);
 
     const { taskId } = req.params;
 
