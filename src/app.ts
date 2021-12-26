@@ -41,14 +41,18 @@ app.use(handleLoggerError);
 
 process.on('uncaughtException', (err: Error) => {
   logger.error(`Uncaught exception ${err.name}:`, err);
-
-  process.exit(1);
+  setTimeout(() => {
+    process.exit(1);
+  }, 1500);
 });
 
 process.on('unhandledRejection', (err: Error) => {
   logger.error(`Unhandled rejection ${err.name}: ${err.message}`);
-
-  process.exit(1);
+  setTimeout(() => {
+    process.exit(1);
+  }, 1500);
 });
+
+throw Error('Oops!');
 
 export default app;
