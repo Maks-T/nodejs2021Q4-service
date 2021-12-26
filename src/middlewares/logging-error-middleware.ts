@@ -10,7 +10,6 @@ export const handleLoggerError = (
   res: Response,
   next: NextFunction
 ): void => {
-  console.log('err instanceof WarnLog', err instanceof WarnLog);
   if (err instanceof WarnLog) {
     logger.warn(`Status code: ${err.statusCode}`, err);
     res.status(err.statusCode).send({
