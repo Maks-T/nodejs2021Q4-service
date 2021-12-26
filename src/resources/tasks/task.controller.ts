@@ -4,6 +4,8 @@ import tasksService from './task.service';
 import boardsService from '../boards/board.service';
 import isIdValid from '../../common/validaty';
 import { ITaskData, Task } from './task.model';
+import WarnLog from '../../common/warn-log';
+import IntErrorWrap from '../../common/internal-error-wrapper';
 
 /**
  * Description
@@ -12,26 +14,23 @@ import { ITaskData, Task } from './task.model';
  * @param handlerTask - callback function which calls if board is founded
  * @returns a promise object resolves to void
  */
-const isBoardFound = async (
-  req: Request,
-  res: Response,
-  handlerTask: () => void
-): Promise<void> => {
+const isBoardFound = async (req: Request, res: Response): Promise<void> => {
   const { boardId } = req.params;
 
   if (!isIdValid(boardId)) {
-    res
-      .status(StatusCodes.BAD_REQUEST)
-      .send({ message: `Board id = ${boardId} is not valid` });
+    throw new WarnLog(
+      StatusCodes.BAD_REQUEST,
+      `Board id = ${boardId} is not valid`
+    );
   } else {
     const foundBoard = await boardsService.getBoard(boardId);
 
     if (foundBoard) {
-      handlerTask();
     } else {
-      res
-        .status(StatusCodes.NOT_FOUND)
-        .send({ message: `Board with id = ${boardId} was not found` });
+      throw new WarnLog(
+        StatusCodes.NOT_FOUND,
+        `Board with id = ${boardId} was not found`
+      );
     }
   }
 };
@@ -44,15 +43,12 @@ const isBoardFound = async (
  */
 const getAll = async (req: Request, res: Response): Promise<void> => {
   try {
-    isBoardFound(req, res, async () => {
-      const allTasks = await tasksService.getAll();
+    await isBoardFound(req, res);
+    const allTasks = await tasksService.getAll();
 
-      res.status(StatusCodes.OK).send(allTasks);
-    });
+    res.status(StatusCodes.OK).send(allTasks);
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [getAllTasks] ${e}` });
+    IntErrorWrap(e, 'getAllTasks');
   }
 };
 
@@ -64,29 +60,29 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
  */
 const getTask = async (req: Request, res: Response): Promise<void> => {
   try {
-    isBoardFound(req, res, async () => {
-      const { taskId } = req.params;
+    await isBoardFound(req, res);
 
-      if (isIdValid(taskId)) {
-        const foundTask = await tasksService.getTask(taskId);
+    const { taskId } = req.params;
 
-        if (foundTask) {
-          res.status(StatusCodes.OK).send(foundTask);
-        } else {
-          res
-            .status(StatusCodes.NOT_FOUND)
-            .send({ message: `Task with id = ${taskId} was not found` });
-        }
+    if (isIdValid(taskId)) {
+      const foundTask = await tasksService.getTask(taskId);
+
+      if (foundTask) {
+        res.status(StatusCodes.OK).send(foundTask);
       } else {
-        res
-          .status(StatusCodes.BAD_REQUEST)
-          .send({ message: `Task id = ${taskId} is not valid` });
+        throw new WarnLog(
+          StatusCodes.NOT_FOUND,
+          `Task with id = ${taskId} was not found`
+        );
       }
-    });
+    } else {
+      throw new WarnLog(
+        StatusCodes.BAD_REQUEST,
+        `Task id = ${taskId} is not valid`
+      );
+    }
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [getTask] ${e}` });
+    IntErrorWrap(e, 'getTask');
   }
 };
 
@@ -98,20 +94,18 @@ const getTask = async (req: Request, res: Response): Promise<void> => {
  */
 const postTask = async (req: Request, res: Response) => {
   try {
-    isBoardFound(req, res, async () => {
-      const task = new Task(req.body);
+    await isBoardFound(req, res);
 
-      const taskData = <ITaskData>task;
+    const task = new Task(req.body);
 
-      taskData.boardId = req.params.boardId;
-      const createdTask = await tasksService.postTask(taskData);
+    const taskData = <ITaskData>task;
 
-      res.status(StatusCodes.CREATED).send(createdTask);
-    });
+    taskData.boardId = req.params.boardId;
+    const createdTask = await tasksService.postTask(taskData);
+
+    res.status(StatusCodes.CREATED).send(createdTask);
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [postTask] ${e}` });
+    IntErrorWrap(e, 'postTask');
   }
 };
 
@@ -121,33 +115,34 @@ const postTask = async (req: Request, res: Response) => {
  * @param res - object represents the HTTP response
  * @returns a promise object resolves to void
  */
+
 const putTask = async (req: Request, res: Response) => {
   try {
-    isBoardFound(req, res, async () => {
-      const { taskId } = req.params;
+    await isBoardFound(req, res);
 
-      if (isIdValid(taskId)) {
-        req.body.id = taskId;
+    const { taskId } = req.params;
 
-        const updateTask = await tasksService.putTask(taskId, req.body);
+    if (isIdValid(taskId)) {
+      req.body.id = taskId;
 
-        if (updateTask) {
-          res.status(StatusCodes.OK).send(updateTask);
-        } else {
-          res
-            .status(StatusCodes.NOT_FOUND)
-            .send({ message: `Task with id = ${taskId} was not found` });
-        }
+      const updateTask = await tasksService.putTask(taskId, req.body);
+
+      if (updateTask) {
+        res.status(StatusCodes.OK).send(updateTask);
       } else {
-        res
-          .status(StatusCodes.BAD_REQUEST)
-          .send({ message: `Task id = ${taskId} is not valid` });
+        throw new WarnLog(
+          StatusCodes.NOT_FOUND,
+          `Task with id = ${taskId} was not found`
+        );
       }
-    });
+    } else {
+      throw new WarnLog(
+        StatusCodes.BAD_REQUEST,
+        `Task id = ${taskId} is not valid`
+      );
+    }
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [putTask] ${e}` });
+    IntErrorWrap(e, 'putTask');
   }
 };
 
@@ -157,31 +152,32 @@ const putTask = async (req: Request, res: Response) => {
  * @param res - object represents the HTTP response
  * @returns a promise object resolves to void
  */
+
 const deleteTask = async (req: Request, res: Response) => {
   try {
-    isBoardFound(req, res, async () => {
-      const { taskId } = req.params;
+    await isBoardFound(req, res);
 
-      if (isIdValid(taskId)) {
-        const deletedTask = await tasksService.deleteTask(taskId);
+    const { taskId } = req.params;
 
-        if (deletedTask) {
-          res.status(StatusCodes.NO_CONTENT).send();
-        } else {
-          res
-            .status(StatusCodes.NOT_FOUND)
-            .send({ message: `Task with id = ${taskId} was not found` });
-        }
+    if (isIdValid(taskId)) {
+      const deletedTask = await tasksService.deleteTask(taskId);
+
+      if (deletedTask) {
+        res.status(StatusCodes.NO_CONTENT).send();
       } else {
-        res
-          .status(StatusCodes.BAD_REQUEST)
-          .send({ message: `Task id = ${taskId} is not valid` });
+        throw new WarnLog(
+          StatusCodes.NOT_FOUND,
+          `Task with id = ${taskId} was not found`
+        );
       }
-    });
+    } else {
+      throw new WarnLog(
+        StatusCodes.BAD_REQUEST,
+        `Task id = ${taskId} is not valid`
+      );
+    }
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [deleteTask] ${e}` });
+    IntErrorWrap(e, 'deleteTask');
   }
 };
 

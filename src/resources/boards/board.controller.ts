@@ -5,6 +5,8 @@ import boardService from './board.service';
 import isIdValid from '../../common/validaty';
 import { Board, IBoardData } from './board.model';
 import taskService from '../tasks/task.service';
+import IntErrorWrap from '../../common/internal-error-wrapper';
+import WarnLog from '../../common/warn-log';
 
 /**
  * Accesses the repository to send all board data without password to client
@@ -12,15 +14,13 @@ import taskService from '../tasks/task.service';
  * @param res - object represents the HTTP response
  * @returns a promise object resolves to void
  */
-const getAll = async (req: Request, res: Response): Promise<void> => {
+const getAll = async (_req: Request, res: Response): Promise<void> => {
   try {
     const allBoards = await boardService.getAll();
 
     res.status(StatusCodes.OK).send(allBoards);
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [getAllBoards] ${e}` });
+    IntErrorWrap(e, 'getAllBoards');
   }
 };
 
@@ -39,19 +39,19 @@ const getBoard = async (req: Request, res: Response): Promise<void> => {
       if (foundBoard) {
         res.status(StatusCodes.OK).send(foundBoard);
       } else {
-        res
-          .status(StatusCodes.NOT_FOUND)
-          .send({ message: `Board with id = ${boardId} was not found` });
+        throw new WarnLog(
+          StatusCodes.NOT_FOUND,
+          `Board with id = ${boardId} was not found`
+        );
       }
     } else {
-      res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ message: `Board id = ${boardId} is not valid` });
+      throw new WarnLog(
+        StatusCodes.BAD_REQUEST,
+        `Board id = ${boardId} is not valid`
+      );
     }
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [getBoard] ${e}` });
+    IntErrorWrap(e, 'getBoard');
   }
 };
 
@@ -69,9 +69,7 @@ const postBoard = async (req: Request, res: Response): Promise<void> => {
 
     res.status(StatusCodes.CREATED).send(createdBoard);
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [postBoard] ${e}` });
+    IntErrorWrap(e, 'postBoard');
   }
 };
 
@@ -93,19 +91,19 @@ const putBoard = async (req: Request, res: Response): Promise<void> => {
       if (updateBoard) {
         res.status(StatusCodes.OK).send(updateBoard);
       } else {
-        res
-          .status(StatusCodes.NOT_FOUND)
-          .send({ message: `Board with id = ${boardId} was not found` });
+        throw new WarnLog(
+          StatusCodes.NOT_FOUND,
+          `Board with id = ${boardId} was not found`
+        );
       }
     } else {
-      res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ message: `Board id = ${boardId} is not valid` });
+      throw new WarnLog(
+        StatusCodes.BAD_REQUEST,
+        `Board id = ${boardId} is not valid`
+      );
     }
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [putBoard] ${e} ${e}` });
+    IntErrorWrap(e, 'putBoard');
   }
 };
 
@@ -132,19 +130,19 @@ const deleteBoard = async (req: Request, res: Response): Promise<void> => {
 
         res.status(StatusCodes.NO_CONTENT).send();
       } else {
-        res
-          .status(StatusCodes.NOT_FOUND)
-          .send({ message: `Board with id = ${boardId} was not found` });
+        throw new WarnLog(
+          StatusCodes.NOT_FOUND,
+          `Board with id = ${boardId} was not found`
+        );
       }
     } else {
-      res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ message: `Board id = ${boardId} is not valid` });
+      throw new WarnLog(
+        StatusCodes.BAD_REQUEST,
+        `Board id = ${boardId} is not valid`
+      );
     }
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [deleteBoard]` });
+    IntErrorWrap(e, 'deleteBoard');
   }
 };
 

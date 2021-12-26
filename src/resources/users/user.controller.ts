@@ -6,13 +6,16 @@ import taskService from '../tasks/task.service';
 import { IUserData, User } from './user.model';
 import userService from './user.service';
 
+import IntErrorWrap from '../../common/internal-error-wrapper';
+import WarnLog from '../../common/warn-log';
+
 /**
  * Accesses the repository to send all user data without password to client
  * @param req - object represents the HTTP request
  * @param res - object represents the HTTP response
  * @returns a promise object resolves to void
  */
-const getAll = async (req: Request, res: Response): Promise<void> => {
+const getAll = async (_req: Request, res: Response): Promise<void> => {
   try {
     const allUsers = await userService.getAll();
     // map user fields to exclude secret fields like "password"
@@ -20,9 +23,7 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
 
     res.status(StatusCodes.OK).send(allUsers);
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [getAllUsers] ${e}` });
+    IntErrorWrap(e, 'getAllUsers');
   }
 };
 
@@ -42,19 +43,19 @@ const getUser = async (req: Request, res: Response): Promise<void> => {
       if (foundUser) {
         res.status(StatusCodes.OK).send(User.toResponse(foundUser));
       } else {
-        res
-          .status(StatusCodes.NOT_FOUND)
-          .send({ message: `User with id = ${userId} was not found` });
+        throw new WarnLog(
+          StatusCodes.NOT_FOUND,
+          `User with id = ${userId} was not found`
+        );
       }
     } else {
-      res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ message: `User id = ${userId} is not valid` });
+      throw new WarnLog(
+        StatusCodes.BAD_REQUEST,
+        `User id = ${userId} is not valid`
+      );
     }
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [getUser]` });
+    IntErrorWrap(e, 'getUser');
   }
 };
 
@@ -74,9 +75,7 @@ const postUser = async (req: Request, res: Response): Promise<void> => {
 
     res.status(StatusCodes.CREATED).send(User.toResponse(createdUser));
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [postUser] ${e}` });
+    IntErrorWrap(e, 'postUser');
   }
 };
 
@@ -97,19 +96,19 @@ const putUser = async (req: Request, res: Response): Promise<void> => {
       if (updateUser) {
         res.status(StatusCodes.OK).send(User.toResponse(updateUser));
       } else {
-        res
-          .status(StatusCodes.NOT_FOUND)
-          .send({ message: `User with id = ${userId} was not found` });
+        throw new WarnLog(
+          StatusCodes.NOT_FOUND,
+          `User with id = ${userId} was not found`
+        );
       }
     } else {
-      res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ message: `User id = ${userId} is not valid` });
+      throw new WarnLog(
+        StatusCodes.BAD_REQUEST,
+        `User id = ${userId} is not valid`
+      );
     }
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [putUser] ${e}` });
+    IntErrorWrap(e, 'putUser');
   }
 };
 
@@ -140,19 +139,19 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
 
         res.status(StatusCodes.NO_CONTENT).send();
       } else {
-        res
-          .status(StatusCodes.NOT_FOUND)
-          .send({ message: `User with id = ${userId} was not found` });
+        throw new WarnLog(
+          StatusCodes.NOT_FOUND,
+          `User with id = ${userId} was not found`
+        );
       }
     } else {
-      res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ message: `User id = ${userId} is not valid` });
+      throw new WarnLog(
+        StatusCodes.BAD_REQUEST,
+        `User id = ${userId} is not valid`
+      );
     }
   } catch (e) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .send({ message: `Internal Server Error [deleteUser] ${e}` });
+    IntErrorWrap(e, 'deleteUser');
   }
 };
 

@@ -1,16 +1,17 @@
 import { Router } from 'express';
+import asyncHandler from 'express-async-handler';
 import userController from './user.controller';
 
 const userRouter: Router = Router();
 
-userRouter.get('/users/', userController.getAll);
+userRouter.get('/users/', asyncHandler(userController.getAll));
 
-userRouter.get('/users/:userId/', userController.getUser);
+userRouter.get('/users/:userId/', asyncHandler(userController.getUser));
 
-userRouter.post('/users/', userController.postUser);
+userRouter.post('/users/', asyncHandler(userController.postUser));
 
-userRouter.put('/users/:userId/', userController.putUser);
+userRouter.put('/users/:userId/', asyncHandler(userController.putUser));
 
-userRouter.delete('/users/:userId/', userController.deleteUser);
+userRouter.delete('/users/:userId/', asyncHandler(userController.deleteUser));
 
 export default userRouter;
