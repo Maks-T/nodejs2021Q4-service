@@ -1,23 +1,23 @@
-version: '3.9'
+version: '3.8'
 services:
   node:
-    container_name: 'node'
+    container_name: 'node-m'
     image: 'maks/node'
     build: .
     depends_on:
-      - postgres
+      - postgres-m
     ports:
       - ${PORT}:${PORT}
     volumes:
-      - ./logs:/usr/src/app/logs
-      - ./src:/usr/src/app/src
+      - ./logs:/usr/app/logs
+      - ./src:/usr/app/src
     restart: always
     environment:
       PORT: ${PORT}
     networks:
       - maks-defined
-  postgres:
-    container_name: 'postgres'
+  postgres-m:
+    container_name: 'postgres-m'
     image: 'maks/postgres'
     build: ./database/
     ports:
