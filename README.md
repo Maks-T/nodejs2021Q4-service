@@ -4,16 +4,23 @@
 
 - Git - [Download & Install Git](https://git-scm.com/downloads).
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
+- Docker - [Download & Install Docker](https://docs.docker.com/)
 
 ## Before you start, you must:
 
-- `git clone https://github.com/Maks-T/nodejs2021Q4-service.git` - clones the repository ;
+- `git clone https://github.com/Maks-T/nodejs2021Q4-service/tree/task-7-docker-basics` - clones the repository ;
 - `cd nodejs2021Q4-service` - nodejs2021Q4-service;
-- `git checkout task-6-logging` - select the `task-6-logging` branch;
+- `git checkout task-7-docker-basics` - select the `task-7-docker-basics` branch;
 
 ## Installing NPM modules
 
 - `npm i` or `npm install` - install dependencies;
+
+## Docker run
+
+```
+docker-compose up --build
+```
 
 ## Running application
 
