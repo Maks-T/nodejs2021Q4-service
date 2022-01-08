@@ -1,6 +1,9 @@
-FROM node:16-alpine
+FROM alpine:3.15.0
+ARG PORT
+EXPOSE ${PORT}
 WORKDIR /usr/app
-COPY package*.json .
+RUN apk --no-cache add nodejs npm
+COPY package*.json ./
 RUN npm install
 COPY . .
 CMD ["npm", "start"]
