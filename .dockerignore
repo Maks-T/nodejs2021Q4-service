@@ -1,0 +1,9 @@
+node_modules
+.vscode
+build
+.gitignore
+.dockerignore
+database
+Dockerfile
+docker-compose.yml
+test

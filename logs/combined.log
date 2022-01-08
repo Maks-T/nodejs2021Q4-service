@@ -1,0 +1,10 @@
+{"level":"info","message":"Method: POST, URl: /users, query: {}, body: {}, statusCode: 201","timestamp":"2022-01-08 08:32:47:3247"}
+{"level":"info","message":"Method: POST, URl: /users, query: {}, body: {}, statusCode: 201","timestamp":"2022-01-08 08:32:48:3248"}
+{"level":"info","message":"Method: POST, URl: /users, query: {}, body: {}, statusCode: 201","timestamp":"2022-01-08 08:32:48:3248"}
+{"level":"info","message":"Method: POST, URl: /users, query: {}, body: {}, statusCode: 201","timestamp":"2022-01-08 08:32:48:3248"}
+{"level":"info","message":"Method: POST, URl: /users, query: {}, body: {}, statusCode: 201","timestamp":"2022-01-08 08:43:23:4323"}
+{"level":"info","message":"Method: GET, URl: /users, query: {}, body: {}, statusCode: 200","timestamp":"2022-01-08 08:43:26:4326"}
+{"level":"info","message":"Method: GET, URl: /users, query: {}, body: {}, statusCode: 200","timestamp":"2022-01-08 08:43:31:4331"}
+{"level":"info","message":"Method: GET, URl: /users, query: {}, body: {}, statusCode: 200","timestamp":"2022-01-08 08:43:32:4332"}
+{"level":"info","message":"Method: POST, URl: /users, query: {}, body: {}, statusCode: 201","timestamp":"2022-01-08 08:43:37:4337"}
+{"level":"info","message":"Method: POST, URl: /users, query: {}, body: {}, statusCode: 201","timestamp":"2022-01-08 08:43:37:4337"}
