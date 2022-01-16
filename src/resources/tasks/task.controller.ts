@@ -15,25 +15,16 @@ import IntErrorWrap from '../../common/internal-error-wrapper';
  * @returns a promise object resolves to void
  */
 
-/*const isBoardFound = async (req: Request): Promise<void> => {
-  const { boardId } = req.params;
+const isBoardFound = async (boardId: string): Promise<void> => {
+  const foundBoard = await boardsService.getBoard(boardId);
 
-  if (!isIdValid(boardId)) {
+  if (!foundBoard) {
     throw new WarnLog(
-      StatusCodes.BAD_REQUEST,
-      `Board id = ${boardId} is not valid`
+      StatusCodes.NOT_FOUND,
+      `Board with id = ${boardId} was not found`
     );
-  } else {
-    const foundBoard = await boardsService.getBoard(boardId);
-
-    if (!foundBoard) {
-      throw new WarnLog(
-        StatusCodes.NOT_FOUND,
-        `Board with id = ${boardId} was not found`
-      );
-    }
   }
-};*/
+};
 
 const isBoardIdValid = (boardId: string) => {
   if (!isIdValid(boardId)) {
@@ -89,7 +80,9 @@ const getAll = async (req: Request, res: Response): Promise<void> => {
 const getTask = async (req: Request, res: Response): Promise<void> => {
   try {
     const { boardId, taskId } = req.params;
-    //ToDO check if board exist
+
+    await isBoardFound(boardId);
+
     isBoardIdValid(boardId);
 
     isTaskIdValid(taskId);
@@ -118,7 +111,9 @@ const getTask = async (req: Request, res: Response): Promise<void> => {
 const postTask = async (req: Request, res: Response) => {
   try {
     const { boardId } = req.params;
-    //ToDO check if board exist
+
+    await isBoardFound(boardId);
+
     isBoardIdValid(boardId);
 
     const taskData = new Task(req.body);
@@ -141,7 +136,9 @@ const postTask = async (req: Request, res: Response) => {
 const putTask = async (req: Request, res: Response) => {
   try {
     const { boardId, taskId } = req.params;
-    //ToDO check if board exist
+
+    await isBoardFound(boardId);
+
     isBoardIdValid(boardId);
 
     isTaskIdValid(taskId);
@@ -174,7 +171,9 @@ const putTask = async (req: Request, res: Response) => {
 const deleteTask = async (req: Request, res: Response) => {
   try {
     const { boardId, taskId } = req.params;
-    //ToDO check if board exist
+
+    await isBoardFound(boardId);
+
     isBoardIdValid(boardId);
 
     isTaskIdValid(taskId);
