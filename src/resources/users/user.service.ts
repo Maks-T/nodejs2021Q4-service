@@ -1,45 +1,63 @@
-import usersRepo from './user.memory.repository';
 import { IUserData } from './user.model';
+import { userRepo } from './user.repository';
+import { UserEntity } from './user.entity';
 
 /**
  * Returns data of all users from the repository
  * @returns a promise object representing an array of users data
  */
-const getAll = (): Promise<IUserData[]> => usersRepo.getAll();
+const getAll = async (): Promise<UserEntity[]> => userRepo().find();
 
 /**
  * Returns user data from the repository
  * @param userId - identifier of user
  * @returns a promise object representing user data or undefined if the user is not found
  */
-const getUser = (userId: string): Promise<IUserData | undefined> =>
-  usersRepo.getUser(userId);
+const getUser = async (userId: string): Promise<UserEntity | undefined> => {
+  const findedUser = await userRepo().findOne(userId);
+  return findedUser;
+};
 
 /**
  * Save and return created user data from the repository
  * @param userData - data user
  * @returns a promise object representing created user data
  */
-const postUser = (userData: IUserData): Promise<IUserData> =>
-  usersRepo.postUser(userData);
+const postUser = async (userData: IUserData): Promise<UserEntity> => {
+  const createdUser = userRepo().create(userData);
+  await userRepo().save(createdUser);
+  return createdUser;
+};
 
 /**
  * Update and return updated user data from the repository
  * @param userId - identifier of user
  * @param userData - data user
- * @returns a promise object representing updated user data or null if the user does not exist
+ * @returns a promise object representing updated user data or undefined if the user does not exist
  */
-const putUser = (
+const putUser = async (
   userId: string,
   userData: IUserData
-): Promise<IUserData | null> => usersRepo.putUser(userId, userData);
+): Promise<UserEntity | undefined> => {
+  const updatedUser = await userRepo().findOne(userId);
+  if (updatedUser) {
+    Object.assign(updatedUser, userData);
+    await userRepo().save(updatedUser);
+  }
+  return updatedUser;
+};
 
 /**
  * Delete and return deleted user data from the repository
  * @param userId - identifier of user
  * @returns a promise object representing deleted user data or null if the user does not exist
  */
-const deleteUser = (userId: string): Promise<IUserData | null> =>
-  usersRepo.deleteUser(userId);
-
+const deleteUser = async (userId: string): Promise<boolean> => {
+  const result = await userRepo().delete(userId);
+  console.log('result.affected   ', result.affected);
+  if (result.affected === 0) {
+    return false;
+  }
+  return true;
+};
 export default { getAll, getUser, postUser, putUser, deleteUser };

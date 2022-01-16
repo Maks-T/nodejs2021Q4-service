@@ -19,7 +19,7 @@ const getAll = async (_req: Request, res: Response): Promise<void> => {
   try {
     const allUsers = await userService.getAll();
     // map user fields to exclude secret fields like "password"
-    allUsers.map(User.toResponse);
+    allUsers.map((user) => user.toResponse());
 
     res.status(StatusCodes.OK).send(allUsers);
   } catch (e) {
@@ -41,7 +41,7 @@ const getUser = async (req: Request, res: Response): Promise<void> => {
       const foundUser = await userService.getUser(userId);
 
       if (foundUser) {
-        res.status(StatusCodes.OK).send(User.toResponse(foundUser));
+        res.status(StatusCodes.OK).send(foundUser.toResponse());
       } else {
         throw new WarnLog(
           StatusCodes.NOT_FOUND,
@@ -71,9 +71,9 @@ const postUser = async (req: Request, res: Response): Promise<void> => {
 
     const user = new User(req.body);
 
-    const createdUser = await userService.postUser(<IUserData>user);
+    const createdUser = await userService.postUser(user);
 
-    res.status(StatusCodes.CREATED).send(User.toResponse(createdUser));
+    res.status(StatusCodes.CREATED).send(createdUser.toResponse());
   } catch (e) {
     IntErrorWrap(e, 'postUser');
   }
@@ -94,7 +94,7 @@ const putUser = async (req: Request, res: Response): Promise<void> => {
       const updateUser = await userService.putUser(userId, req.body);
 
       if (updateUser) {
-        res.status(StatusCodes.OK).send(User.toResponse(updateUser));
+        res.status(StatusCodes.OK).send(updateUser.toResponse());
       } else {
         throw new WarnLog(
           StatusCodes.NOT_FOUND,
@@ -125,18 +125,6 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
       const deletedUser = await userService.deleteUser(userId);
 
       if (deletedUser) {
-        const allTasks = await taskService.getAll();
-
-        const updateTasks = allTasks.filter((task) => task.userId === userId);
-
-        updateTasks.forEach((task) => {
-          const updateTask: ITaskData = task;
-
-          updateTask.userId = null;
-
-          taskService.putTask(updateTask.id, updateTask);
-        });
-
         res.status(StatusCodes.NO_CONTENT).send();
       } else {
         throw new WarnLog(

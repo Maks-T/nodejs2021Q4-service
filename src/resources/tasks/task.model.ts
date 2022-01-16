@@ -1,13 +1,11 @@
 import { v4 as uuid } from 'uuid';
 
 export interface ITaskData {
-  id: string;
   title: string;
   order: number;
   description: string;
   userId: string | null;
-  boardId: string | null;
-  columnId: string | null;
+  columnId: string;
 }
 
 /** Task data model */
@@ -22,9 +20,7 @@ export class Task {
 
   public userId: string | null;
 
-  public boardId: string | null;
-
-  public columnId: string | null;
+  public columnId: string;
 
   /**
    * Constructor of class Task
@@ -35,15 +31,14 @@ export class Task {
     order = 0,
     description = 'task description',
     userId = null,
-    boardId = null,
-    columnId = null,
+    columnId,
   }: ITaskData) {
     this.id = uuid();
     this.title = title;
     this.order = order;
     this.description = description;
     this.userId = userId;
-    this.boardId = boardId;
+
     this.columnId = columnId;
   }
 }

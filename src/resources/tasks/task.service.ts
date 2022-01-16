@@ -1,27 +1,48 @@
-import tasksRepo from './task.memory.repository';
+import { TaskEntity } from './task.entity';
 import { ITaskData } from './task.model';
+import { taskRepo } from './task.repository';
 
 /**
  * Returns data of all tasks from the repository
  * @returns a promise object representing an array of tasks data
  */
-const getAll = (): Promise<ITaskData[]> => tasksRepo.getAll();
+const getAll = async (boardId: string): Promise<TaskEntity[]> => {
+  {
+    return taskRepo().find({ where: { boardId } });
+  }
+};
 
 /**
  * Returns task data from the repository
  * @param taskId - identifier of task
  * @returns a promise object representing task data or undefined if the task is not found
  */
-const getTask = (taskId: string): Promise<ITaskData | undefined> =>
-  tasksRepo.getTask(taskId);
+const getTask = async (
+  boardId: string,
+  taskId: string
+): Promise<TaskEntity | undefined> => {
+  const findedTask = await taskRepo().findOne({
+    where: { id: taskId, boardId },
+  });
+
+  return findedTask;
+};
 
 /**
  * Save and return created task data from the repository
  * @param taskData - data task
  * @returns a promise object representing created task data
  */
-const postTask = (taskData: ITaskData): Promise<ITaskData> =>
-  tasksRepo.postTask(taskData);
+const postTask = async (
+  boardId: string,
+  taskData: ITaskData
+): Promise<TaskEntity> => {
+  {
+    const createdTask = taskRepo().create({ ...taskData, boardId });
+    await taskRepo().save(createdTask);
+    return createdTask;
+  }
+};
 
 /**
  * Save and return updated task data from the repository
@@ -29,17 +50,37 @@ const postTask = (taskData: ITaskData): Promise<ITaskData> =>
  * @param taskData - data task
  * @returns a promise object representing created task data or null if the task does not exist
  */
-const putTask = (
+const putTask = async (
+  boardId: string,
   taskId: string,
   taskData: ITaskData
-): Promise<ITaskData | null> => tasksRepo.putTask(taskId, taskData);
+): Promise<TaskEntity | undefined> => {
+  const updatedTask = await taskRepo().findOne({
+    where: { id: taskId, boardId },
+  });
+  if (updatedTask) {
+    Object.assign(updatedTask, taskData);
+    await taskRepo().save(updatedTask);
+  }
+
+  return updatedTask;
+};
 
 /**
  * Delete and return deleted task data from the repository
  * @param taskId - identifier of task
  * @returns a promise object representing deleted task data or null if the task does not exist
  */
-const deleteTask = (taskId: string): Promise<ITaskData | null> =>
-  tasksRepo.deleteTask(taskId);
+const deleteTask = async ( 
+  taskId: string
+): Promise<boolean> => {
+
+  const result = await taskRepo().delete({ id: taskId });
+
+  if (result.affected === 0) {
+    return false;
+  }
+  return true;
+};
 
 export default { getAll, getTask, postTask, putTask, deleteTask };
