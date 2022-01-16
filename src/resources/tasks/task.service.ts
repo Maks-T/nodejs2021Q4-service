@@ -4,7 +4,8 @@ import { taskRepo } from './task.repository';
 
 /**
  * Returns data of all tasks from the repository
- * @returns a promise object representing an array of tasks data
+ * @param boardId - identifier of board
+ * @returns a promise object representing an array of TaskEntity
  */
 const getAll = async (boardId: string): Promise<TaskEntity[]> => {
   {
@@ -14,8 +15,9 @@ const getAll = async (boardId: string): Promise<TaskEntity[]> => {
 
 /**
  * Returns task data from the repository
+ * @param boardId - identifier of board
  * @param taskId - identifier of task
- * @returns a promise object representing task data or undefined if the task is not found
+ * @returns a promise object representing TaskEntity or undefined if the task is not found
  */
 const getTask = async (
   boardId: string,
@@ -30,8 +32,9 @@ const getTask = async (
 
 /**
  * Save and return created task data from the repository
+ * @param boardId - identifier of board
  * @param taskData - data task
- * @returns a promise object representing created task data
+ * @returns a promise object representing created TaskEntity
  */
 const postTask = async (
   boardId: string,
@@ -46,9 +49,10 @@ const postTask = async (
 
 /**
  * Save and return updated task data from the repository
+ * @param boardId - identifier of board
  * @param taskId - identifier of task
  * @param taskData - data task
- * @returns a promise object representing created task data or null if the task does not exist
+ * @returns a promise object representing created TaskEntity or undefined if the task does not exist
  */
 const putTask = async (
   boardId: string,
@@ -69,12 +73,9 @@ const putTask = async (
 /**
  * Delete and return deleted task data from the repository
  * @param taskId - identifier of task
- * @returns a promise object representing deleted task data or null if the task does not exist
+ * @returns a promise object representing true if task successly deleted or false if task not found
  */
-const deleteTask = async ( 
-  taskId: string
-): Promise<boolean> => {
-
+const deleteTask = async (taskId: string): Promise<boolean> => {
   const result = await taskRepo().delete({ id: taskId });
 
   if (result.affected === 0) {

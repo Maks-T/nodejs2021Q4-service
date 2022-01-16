@@ -3,14 +3,14 @@ import { BoardEntity } from './board.entity';
 import { boardRepo } from './board.repository';
 /**
  * Returns data of all boards from the repository
- * @returns a promise object representing an array of boards data
+ * @returns a promise object representing an array of BoardEntity
  */
-const getAll = (): Promise<IBoardData[]> => boardRepo().find();
+const getAll = (): Promise<BoardEntity[]> => boardRepo().find();
 
 /**
  * Returns board data from the repository
  * @param boardId - identifier of board
- * @returns a promise object representing board data or undefined if the board is not found
+ * @returns a promise object representing BoardEntity or undefined if the board is not found
  */
 const getBoard = async (boardId: string): Promise<BoardEntity | undefined> => {
   const findedBoard = await boardRepo().findOne(boardId);
@@ -20,7 +20,7 @@ const getBoard = async (boardId: string): Promise<BoardEntity | undefined> => {
 /**
  * Save and return created board data from the repository
  * @param boardData - data board
- * @returns a promise object representing created board data or null if the board does not exist
+ * @returns a promise object representing created BoardEntity or null if the board does not exist
  */
 const postBoard = async (boardData: IBoardData): Promise<BoardEntity> => {
   const createdBoard = boardRepo().create(boardData);
@@ -32,7 +32,7 @@ const postBoard = async (boardData: IBoardData): Promise<BoardEntity> => {
  * Update and return updated board data from the repository
  * @param boardId - identifier of board
  * @param boardData - data board
- * @returns a promise object representing updated board data or null if the board does not exist
+ * @returns a promise object representing updated BoardEntity or null if the board does not exist
  */
 const putBoard = async (
   boardId: string,
@@ -48,7 +48,7 @@ const putBoard = async (
 /**
  * Delete and return deleted board data from the repository
  * @param boardId - identifier of board
- * @returns a promise object representing deleted board data or null if the board does not exist
+ * @returns a promise object representing true if board successly deleted or false if board not found
  */
 const deleteBoard = async (boardId: string): Promise<boolean> => {
   const result = await boardRepo().delete(boardId);

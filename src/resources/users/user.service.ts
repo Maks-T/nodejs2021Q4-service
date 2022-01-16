@@ -4,14 +4,14 @@ import { UserEntity } from './user.entity';
 
 /**
  * Returns data of all users from the repository
- * @returns a promise object representing an array of users data
+ * @returns a promise object representing an array of UserEntity
  */
 const getAll = async (): Promise<UserEntity[]> => userRepo().find();
 
 /**
  * Returns user data from the repository
  * @param userId - identifier of user
- * @returns a promise object representing user data or undefined if the user is not found
+ * @returns a promise object representing UserEntity or undefined if the user is not found
  */
 const getUser = async (userId: string): Promise<UserEntity | undefined> => {
   const findedUser = await userRepo().findOne(userId);
@@ -21,7 +21,7 @@ const getUser = async (userId: string): Promise<UserEntity | undefined> => {
 /**
  * Save and return created user data from the repository
  * @param userData - data user
- * @returns a promise object representing created user data
+ * @returns a promise object representing created UserEntity
  */
 const postUser = async (userData: IUserData): Promise<UserEntity> => {
   const createdUser = userRepo().create(userData);
@@ -33,7 +33,7 @@ const postUser = async (userData: IUserData): Promise<UserEntity> => {
  * Update and return updated user data from the repository
  * @param userId - identifier of user
  * @param userData - data user
- * @returns a promise object representing updated user data or undefined if the user does not exist
+ * @returns a promise object representing updated UserEntity or undefined if the user does not exist
  */
 const putUser = async (
   userId: string,
@@ -50,7 +50,7 @@ const putUser = async (
 /**
  * Delete and return deleted user data from the repository
  * @param userId - identifier of user
- * @returns a promise object representing deleted user data or null if the user does not exist
+ * @returns a promise object representing true if user successly deleted or false if user not found
  */
 const deleteUser = async (userId: string): Promise<boolean> => {
   const result = await userRepo().delete(userId);
