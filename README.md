@@ -8,27 +8,15 @@
 
 ## Before you start, you must:
 
-- `git clone https://github.com/Maks-T/nodejs2021Q4-service/tree/task-7-docker-basics` - clones the repository ;
+- `git clone https://github.com/Maks-T/nodejs2021Q4-service/tree/Task8-postgresql-typeorm ` - clones the repository ;
 - `cd nodejs2021Q4-service` - nodejs2021Q4-service;
-- `git checkout task-7-docker-basics` - select the `task-7-docker-basics` branch;
+- `git checkout Task8-postgresql-typeorm` - select the `Task8-postgresql-typeorm` branch;
 
-## Installing NPM modules
+## Launch the application, you must
 
-- `npm i` or `npm install` - install dependencies;
-
-## Docker run
-
-```
-docker-compose up --build
-```
-
-## Running application
-
-- `npm run start`
-
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
+- `docker-compose up --build`
+- wait a bit. The application will restart several times. The database will be created. Migrations will run automatically.
+- After starting the app on port (4000 as default) you can open
 
 ## Testing
 
@@ -38,16 +26,14 @@ To run all tests without authorization
 
 - `npm run test`
 
-## Development
-
-If you're using VSCode, you can get a better developer experience from integration with [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extensions.
-
 ### Auto-fix and format
 
 - `npm run lint`
 
-### Debugging in VSCode
+## Work with migrations
 
-Press <kbd>F5</kbd> to debug.
+- generate: `npm run typeorm -- migration:generate -n Name`
 
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging
+- run: `npm run typeorm -- migration:run`
+
+- revert: `npm run typeorm -- migration:revert`
