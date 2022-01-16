@@ -54,7 +54,6 @@ const putUser = async (
  */
 const deleteUser = async (userId: string): Promise<boolean> => {
   const result = await userRepo().delete(userId);
-  console.log('result.affected   ', result.affected);
   if (result.affected === 0) {
     return false;
   }

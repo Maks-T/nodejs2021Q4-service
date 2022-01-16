@@ -2,7 +2,6 @@ import { createConnection } from 'typeorm';
 import { config } from './common/config';
 import app from './app';
 import configORM from './ormconfig';
-import { UserEntity } from './resources/users/user.entity';
 
 createConnection(configORM)
   .then((connection) => {

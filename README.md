@@ -18,6 +18,10 @@
 - wait a bit. The application will restart several times. The database will be created. Migrations will run automatically.
 - After starting the app on port (4000 as default) you can open
 
+## Installing NPM modules
+
+- `npm i` or `npm install` - install dependencies;
+
 ## Testing
 
 After application running open new terminal and enter:

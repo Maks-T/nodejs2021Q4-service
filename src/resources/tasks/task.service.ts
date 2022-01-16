@@ -7,11 +7,7 @@ import { taskRepo } from './task.repository';
  * @param boardId - identifier of board
  * @returns a promise object representing an array of TaskEntity
  */
-const getAll = async (boardId: string): Promise<TaskEntity[]> => {
-  {
-    return taskRepo().find({ where: { boardId } });
-  }
-};
+const getAll = async (boardId: string): Promise<TaskEntity[]> => taskRepo().find({ where: { boardId } });
 
 /**
  * Returns task data from the repository
@@ -40,11 +36,9 @@ const postTask = async (
   boardId: string,
   taskData: ITaskData
 ): Promise<TaskEntity> => {
-  {
-    const createdTask = taskRepo().create({ ...taskData, boardId });
-    await taskRepo().save(createdTask);
-    return createdTask;
-  }
+  const createdTask = taskRepo().create({ ...taskData, boardId });
+  await taskRepo().save(createdTask);
+  return createdTask;
 };
 
 /**

@@ -3,9 +3,9 @@ import { StatusCodes } from 'http-status-codes';
 import tasksService from './task.service';
 import boardsService from '../boards/board.service';
 import isIdValid from '../../common/validaty';
-import { ITaskData, Task } from './task.model';
 import WarnLog from '../../common/warn-log';
 import IntErrorWrap from '../../common/internal-error-wrapper';
+import { Task } from './task.model';
 
 /**
  * Accesses the repository to send all task data without password to client

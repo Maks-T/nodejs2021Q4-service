@@ -17,14 +17,14 @@ export class BoardEntity {
   @Column()
   title!: string;
 
-  @OneToMany((_type) => ColumnEntity, (column) => column.board, {
+  @OneToMany(() => ColumnEntity, (column) => column.board, {
     eager: true,
     cascade: ['insert', 'update', 'remove', 'soft-remove', 'recover'],
   })
   @JoinTable()
   columns!: ColumnEntity[];
 
-  @OneToMany((_type) => TaskEntity, (task) => task.board, {
+  @OneToMany(() => TaskEntity, (task) => task.board, {
     eager: false,
   })
   tasks!: TaskEntity[];

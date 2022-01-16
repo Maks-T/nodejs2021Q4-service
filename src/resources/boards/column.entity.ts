@@ -20,13 +20,13 @@ export class ColumnEntity extends BaseEntity {
   @Column()
   order!: number;
 
-  @OneToMany((_type) => TaskEntity, (task) => task.column, {
+  @OneToMany(() => TaskEntity, (task) => task.column, {
     eager: true,
     cascade: true,
   })
   tasks!: TaskEntity[];
 
-  @ManyToOne((_type) => BoardEntity, (board) => board.columns, {
+  @ManyToOne(() => BoardEntity, (board) => board.columns, {
     onDelete: 'CASCADE',
   })
   board!: BoardEntity;

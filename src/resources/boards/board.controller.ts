@@ -4,7 +4,6 @@ import { Request, Response } from 'express';
 import boardService from './board.service';
 import isIdValid from '../../common/validaty';
 import { Board, IBoardData } from './board.model';
-import taskService from '../tasks/task.service';
 import IntErrorWrap from '../../common/internal-error-wrapper';
 import WarnLog from '../../common/warn-log';
 
@@ -120,13 +119,13 @@ const deleteBoard = async (req: Request, res: Response): Promise<void> => {
       const deletedBoard = await boardService.deleteBoard(boardId);
 
       if (deletedBoard) {
-        /*const allTasks = await taskService.getAll();
+        /* const allTasks = await taskService.getAll();
 
         const deleteTasks = allTasks.filter((task) => task.boardId === boardId);
 
         deleteTasks.forEach((task) => {
           taskService.deleteTask(task.id);
-        });*/
+        }); */
 
         res.status(StatusCodes.NO_CONTENT).send();
       } else {

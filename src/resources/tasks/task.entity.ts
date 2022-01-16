@@ -17,7 +17,7 @@ export class TaskEntity {
   @Column()
   order!: number;
 
-  @ManyToOne((_type) => UserEntity, (user) => user.tasks, {
+  @ManyToOne(() => UserEntity, (user) => user.tasks, {
     eager: false,
     onDelete: 'SET NULL',
   })
@@ -26,7 +26,7 @@ export class TaskEntity {
   @Column({ nullable: true })
   userId!: string | null;
 
-  @ManyToOne((_type) => BoardEntity, (board) => board.tasks, {
+  @ManyToOne(() => BoardEntity, (board) => board.tasks, {
     eager: false,
     onDelete: 'CASCADE',
   })
@@ -35,7 +35,7 @@ export class TaskEntity {
   @Column({ nullable: true })
   boardId!: string;
 
-  @ManyToOne((_type) => ColumnEntity, (column) => column.tasks, {
+  @ManyToOne(() => ColumnEntity, (column) => column.tasks, {
     eager: false,
   })
   column!: ColumnEntity;

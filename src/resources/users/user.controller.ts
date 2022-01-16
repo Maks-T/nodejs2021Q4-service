@@ -1,11 +1,8 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import isIdValid from '../../common/validaty';
-import { ITaskData } from '../tasks/task.model';
-import taskService from '../tasks/task.service';
-import { IUserData, User } from './user.model';
+import { User } from './user.model';
 import userService from './user.service';
-
 import IntErrorWrap from '../../common/internal-error-wrapper';
 import WarnLog from '../../common/warn-log';
 
