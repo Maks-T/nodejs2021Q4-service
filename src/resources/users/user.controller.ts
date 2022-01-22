@@ -16,9 +16,9 @@ const getAll = async (_req: Request, res: Response): Promise<void> => {
   try {
     const allUsers = await userService.getAll();
     // map user fields to exclude secret fields like "password"
-    allUsers.map((user) => user.toResponse());
+    const allUsersResponse = allUsers.map((user) => user.toResponse());
 
-    res.status(StatusCodes.OK).send(allUsers);
+    res.status(StatusCodes.OK).send(allUsersResponse);
   } catch (e) {
     IntErrorWrap(e, 'getAllUsers');
   }
@@ -88,7 +88,9 @@ const putUser = async (req: Request, res: Response): Promise<void> => {
     if (isIdValid(userId)) {
       req.body.id = userId;
 
-      const updateUser = await userService.putUser(userId, req.body);
+      const userData = new User(req.body);
+
+      const updateUser = await userService.putUser(userId, userData);
 
       if (updateUser) {
         res.status(StatusCodes.OK).send(updateUser.toResponse());

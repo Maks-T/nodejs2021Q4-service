@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-
+import * as bcrypt from 'bcrypt';
 export interface IUserData {
   id?: string;
   name: string;
@@ -22,14 +22,15 @@ export class User {
    * @param userData - user data }
    */
   constructor({
+    id,
     name = 'USER',
     login = 'user',
     password = 'P@55w0rd',
   }: IUserData) {
-    this.id = uuid();
+    this.id = id || uuid();
     this.name = name;
     this.login = login;
-    this.password = password;
+    this.password = bcrypt.hashSync(password, bcrypt.genSaltSync());
   }
 
   /**

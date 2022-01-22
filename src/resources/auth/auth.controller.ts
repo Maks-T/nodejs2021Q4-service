@@ -13,11 +13,11 @@ const getToken = async (req: Request, res: Response): Promise<void> => {
 
     if (token) {
       res.status(StatusCodes.OK).send(token);
+    } else {
+      throw new WarnLog(StatusCodes.FORBIDDEN, `Invalid login or password`);
     }
-
-    throw new WarnLog(StatusCodes.FORBIDDEN, `Invalid username or password`);
   } catch (e) {
-    IntErrorWrap(e, 'getAllBoards');
+    IntErrorWrap(e, 'getToken');
   }
 };
 
