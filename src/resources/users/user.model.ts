@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import * as bcrypt from 'bcrypt';
+
 export interface IUserData {
   id?: string;
   name: string;

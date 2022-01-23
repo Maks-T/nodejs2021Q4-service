@@ -1,7 +1,7 @@
-import { userRepo } from '../users/user.repository';
-import { IAuth } from './auth.model';
 import * as bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { userRepo } from '../users/user.repository';
+import { IAuth } from './auth.model';
 import { config } from '../../common/config';
 
 const getToken = async (
@@ -10,13 +10,6 @@ const getToken = async (
   const { login, password } = authData;
   const user = await userRepo().findOne({ login });
 
-  if (user) {
-    console.log('  user: ', user);
-    console.log(
-      'bcrypt.compareSync(password, user.password)  ',
-      bcrypt.compareSync(password, user.password)
-    );
-  }
   if (
     user &&
     bcrypt.compareSync(password, user.password) &&
