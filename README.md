@@ -8,9 +8,9 @@
 
 ## Before you start, you must:
 
-- `git clone https://github.com/Maks-T/nodejs2021Q4-service/tree/Task8-postgresql-typeorm ` - clones the repository ;
+- `git clone https://github.com/Maks-T/nodejs2021Q4-service/tree/task-9-authentication-JWT` - clones the repository ;
 - `cd nodejs2021Q4-service` - nodejs2021Q4-service;
-- `git checkout Task8-postgresql-typeorm` - select the `Task8-postgresql-typeorm` branch;
+- `git checkout task-9-authentication-JWT` - select the `task-9-authentication-JWT` branch;
 
 ## Launch the application, you must
 
@@ -26,9 +26,9 @@
 
 After application running open new terminal and enter:
 
-To run all tests without authorization
+To run all tests without
 
-- `npm run test`
+- `npm run test:auth`
 
 ### Auto-fix and format
 
