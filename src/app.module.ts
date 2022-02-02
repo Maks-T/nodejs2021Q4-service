@@ -1,6 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './resources/users/users.module';
@@ -11,6 +11,7 @@ import configWinston from './common/logger-cfg';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { AuthModule } from './resources/auth/auth.module';
 import { FileModule } from './resources/file/file.module';
+import configORM from './ormconfig';
 
 @Module({
   imports: [
@@ -20,22 +21,17 @@ import { FileModule } from './resources/file/file.module';
     AuthModule,
     ConfigModule.forRoot({ envFilePath: 'local-db.env' }),
     WinstonModule.forRoot(configWinston),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: Number(process.env.POSTGRES_PORT),
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DB,
-      entities: ['dist/**/*.entity{.ts,.js}'], //ToDO check path dist
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(configORM),
     FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule implements NestModule {
+  constructor(private readonly appService: AppService) {
+    this.appService.runHandleSpecialError();
+  }
+
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('/');
   }

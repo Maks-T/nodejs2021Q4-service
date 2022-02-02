@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   ValueTransformer,
 } from 'typeorm';
-//import { TaskEntity } from '../tasks/task.entity'; //ToDO
+
 import * as bcrypt from 'bcrypt';
 import { TaskEntity } from 'src/resources/tasks/entities/task.entity';
 

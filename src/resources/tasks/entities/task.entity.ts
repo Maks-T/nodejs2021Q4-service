@@ -2,12 +2,12 @@ import { BoardEntity } from 'src/resources/boards/entities/board.entity';
 import { ColumnEntity } from 'src/resources/boards/entities/column.entity';
 import { UserEntity } from 'src/resources/users/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-@Entity('tasks')
+@Entity('task')
 export class TaskEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column({default: 'new task'})
+  @Column({ default: 'new task' })
   title!: string;
 
   @Column()

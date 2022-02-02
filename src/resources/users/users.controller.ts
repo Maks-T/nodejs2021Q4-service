@@ -9,7 +9,6 @@ import {
   HttpStatus,
   Put,
   UseGuards,
- 
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
@@ -25,7 +24,7 @@ export class UsersController {
   @HttpCode(HttpStatus.CREATED)
   create(
     @Body(new ValidationDtoPipe())
-    userDto: UserDto,
+    userDto: UserDto
   ) {
     return this.usersService.create(userDto);
   }
@@ -46,7 +45,7 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   update(
     @Param('userId') userId: string,
-    @Body(new ValidationDtoPipe()) userDto: UserDto,
+    @Body(new ValidationDtoPipe()) userDto: UserDto
   ) {
     return this.usersService.update(userId, userDto);
   }
