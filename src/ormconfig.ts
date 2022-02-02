@@ -3,7 +3,7 @@ import * as path from 'path';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 dotenv.config({
-  path: path.join(__dirname, './../local-db.env'),
+  path: path.join(__dirname, './../.env'),
 });
 
 const configORM: TypeOrmModuleOptions = {
