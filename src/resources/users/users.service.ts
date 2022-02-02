@@ -43,7 +43,9 @@ export class UsersService {
     if (userDto.id) delete userDto.id;
     const updatedUser = await this.usersRepository.findOne(userId);
 
-    await this.isLoginExists(userDto.login);
+    if (userDto.login !== updatedUser.login) {
+      await this.isLoginExists(userDto.login);
+    }
 
     if (updatedUser) {
       Object.assign(updatedUser, userDto);
