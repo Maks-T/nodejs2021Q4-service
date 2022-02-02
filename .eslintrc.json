@@ -1,49 +1,24 @@
 {
-  "root": true,
-  "env": {
-    "es2020": true,
-    "jasmine": true,
-    "jest": true,
-    "node": true
-  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "sourceType": "module",
     "project": "./tsconfig.json",
-
-    "ecmaVersion": 2020,
-    "ecmaFeatures": {
-      "impliedStrict": true
-    }
+    "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "eslint-plugin-tsdoc"],
-  "settings": {
-    "noInlineConfig": true,
-    "node": {
-      "tryExtensions": [".js", ".json", ".node", ".ts", ".d.ts"]
-    }
-  },
+  "plugins": ["@typescript-eslint/eslint-plugin"],
   "extends": [
-    "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:node/recommended",
-    "airbnb-base",
-    "prettier"
+    "plugin:prettier/recommended"
   ],
+  "root": true,
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "ignorePatterns": [".eslintrc.json"],
   "rules": {
-    "@typescript-eslint/no-explicit-any": ["error"],
-    "@typescript-eslint/lines-between-class-members": [
-      "error",
-      "always",
-      { "exceptAfterSingleLine": true }
-    ],
-    "import/no-unresolved": "off",
-    "import/extensions": "off",
-    "linebreak-style": "off",
-    "node/no-unsupported-features/es-syntax": "off",
-    "no-underscore-dangle": "off",
-    "import/prefer-default-export": "off",
-    "class-methods-use-this": 0,
-    "@typescript-eslint/no-non-null-assertion": "off"
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }

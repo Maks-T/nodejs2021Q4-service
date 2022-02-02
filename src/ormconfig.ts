@@ -22,6 +22,5 @@ const configORM: TypeOrmModuleOptions = {
     migrationsDir: 'src/migration',
   },
 };
-console.log('configORM  ', configORM);
 
 export default configORM;

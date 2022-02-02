@@ -2,6 +2,7 @@ import { BoardEntity } from 'src/resources/boards/entities/board.entity';
 import { ColumnEntity } from 'src/resources/boards/entities/column.entity';
 import { UserEntity } from 'src/resources/users/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+
 @Entity('task')
 export class TaskEntity {
   @PrimaryGeneratedColumn('uuid')

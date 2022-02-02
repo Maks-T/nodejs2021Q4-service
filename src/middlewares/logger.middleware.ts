@@ -1,5 +1,4 @@
 import { Injectable, Inject, NestMiddleware } from '@nestjs/common';
-import { Response, Request } from 'express';
 import { finished } from 'stream';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
@@ -7,10 +6,10 @@ import { Logger } from 'winston';
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
   constructor(
-    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger
   ) {}
 
-  use(req: Request, res: Response, next: () => void) {
+  use(req: any, res: any, next: () => void) {
     next();
     finished(res, () => {
       const code = Math.trunc(res.statusCode / 100);
@@ -31,14 +30,14 @@ export class LoggerMiddleware implements NestMiddleware {
     });
   }
 
-  parseInfo = (req: Request, res: Response): string => {
+  parseInfo = (req: any, res: any): string => {
     const { url } = req;
     const query = req.query ? JSON.stringify(req.query) : 'none';
     const body = req.body ? JSON.stringify(req.body) : 'none';
     const { method } = req;
     const { statusCode } = res;
 
-    const exeption = res['exeption'] || 'none';
+    const exeption = res.exeption || 'none';
 
     return `Method: ${method}, URl: ${url}, query: ${query}, body: ${body}, statusCode: ${statusCode}, exeption : ${exeption}`;
   };

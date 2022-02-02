@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Controller,
   Get,
   HttpCode,
@@ -13,19 +12,16 @@ import {
 } from '@nestjs/common';
 
 import { FileInterceptor } from '@nestjs/platform-express';
-import storageOptions from './storage.config';
 import * as fs from 'fs';
 import * as path from 'path';
+import storageOptions from './storage.config';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('File')
 @Controller('file')
 export class FileController {
   @Post('')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: storageOptions,
-    }),
-  )
   upload(@UploadedFile() file) {
     return {
       message: `The ${file.originalname} was successfully uploaded to the server! To download this file, use the link 'localhost:${process.env.PORT}/file/${file.filename}'`,
@@ -37,7 +33,7 @@ export class FileController {
   @UseInterceptors(
     FileInterceptor('file', {
       storage: storageOptions,
-    }),
+    })
   )
   @HttpCode(HttpStatus.OK)
   getFile(@Param('filename') filename, @Res() res) {

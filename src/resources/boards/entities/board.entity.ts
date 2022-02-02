@@ -1,5 +1,4 @@
 import { TaskEntity } from 'src/resources/tasks/entities/task.entity';
-import { ColumnEntity } from './column.entity';
 import {
   PrimaryGeneratedColumn,
   AfterLoad,
@@ -8,6 +7,7 @@ import {
   JoinTable,
   OneToMany,
 } from 'typeorm';
+import { ColumnEntity } from './column.entity';
 
 @Entity('boards')
 export class BoardEntity {

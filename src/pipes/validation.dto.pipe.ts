@@ -23,11 +23,12 @@ export class ValidationDtoPipe implements PipeTransform<Dto> {
     const errors = await validate(obj);
 
     if (errors.length) {
-      let messages = errors.map((err) => {
-        return `${err.property} - ${Object.values(err.constraints).join(', ')}`;
-      });
+      const messages = errors.map(
+        (err) =>
+          `${err.property} - ${Object.values(err.constraints).join(', ')}`
+      );
       throw new BadRequestException(
-        `Validation Exeprion: ${messages.join('/ ')}`,
+        `Validation Exeprion: ${messages.join('/ ')}`
       );
     }
 

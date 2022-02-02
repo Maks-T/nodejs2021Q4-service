@@ -8,7 +8,7 @@ import { TaskEntity } from './entities/task.entity';
 export class TasksService {
   constructor(
     @InjectRepository(TaskEntity)
-    private tasksRepository: Repository<TaskEntity>,
+    private tasksRepository: Repository<TaskEntity>
   ) {}
 
   async create(boardId: string, taskDto: TaskDto) {

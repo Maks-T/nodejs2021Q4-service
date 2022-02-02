@@ -1,12 +1,12 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { WinstonModule } from 'nest-winston';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './resources/users/users.module';
 import { BoardsModule } from './resources/boards/boards.module';
 import { TasksModule } from './resources/tasks/tasks.module';
-import { WinstonModule } from 'nest-winston';
 import configWinston from './common/logger-cfg';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { AuthModule } from './resources/auth/auth.module';

@@ -1,5 +1,4 @@
 import { TaskEntity } from 'src/resources/tasks/entities/task.entity';
-import { BoardEntity } from './board.entity';
 import {
   BaseEntity,
   Column,
@@ -9,6 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { BoardEntity } from './board.entity';
 
 @Entity('columns')
 export class ColumnEntity extends BaseEntity {

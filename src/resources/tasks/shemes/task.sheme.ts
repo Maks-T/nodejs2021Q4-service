@@ -1,21 +1,19 @@
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class TaskDto {
+export class TaskSheme {
+  @ApiProperty({
+    example: 'd1734b2a-c52b-47f5-8c0b-8cbede5f740d',
+    description: 'Task id as UUID',
+  })
   id?: string;
 
   @ApiProperty({ example: 'Task Title', description: 'Task title' })
-  @IsString({ message: 'The task title must be a string' })
   title!: string;
 
   @ApiProperty({ example: 1, description: 'Task order' })
-  @IsNotEmpty({ message: 'The task order name cannot be empty' })
-  @IsInt({ message: 'The task order must be a integer' })
   order!: number;
 
   @ApiProperty({ example: 'Task Description', description: 'Task description' })
-  @IsNotEmpty({ message: 'The task description name cannot be empty' })
-  @IsString({ message: 'The task description must be a string' })
   description!: string;
 
   @ApiProperty({
@@ -29,4 +27,10 @@ export class TaskDto {
     description: 'ColumnId UUID or null',
   })
   columnId!: string | null;
+
+  @ApiProperty({
+    example: 'bb29cb1d-03fc-449b-a576-a08c07e23159',
+    description: 'ColumnId UUID or null',
+  })
+  boardId!: string | null;
 }

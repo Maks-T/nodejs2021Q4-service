@@ -8,8 +8,6 @@ const storageOptions = diskStorage({
   },
 });
 
-const generateFilename = (file) => {
-  return `${Date.now()}${extname(file.originalname)}`;
-};
+const generateFilename = (file) => `${Date.now()}${extname(file.originalname)}`;
 
 export default storageOptions;

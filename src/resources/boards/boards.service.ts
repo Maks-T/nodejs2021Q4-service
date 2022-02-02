@@ -8,13 +8,12 @@ import { BoardEntity } from './entities/board.entity';
 export class BoardsService {
   constructor(
     @InjectRepository(BoardEntity)
-    private boardsRepository: Repository<BoardEntity>,
+    private boardsRepository: Repository<BoardEntity>
   ) {}
 
   async create(boardDto: BoardDto) {
     if (boardDto.id) delete boardDto.id;
 
-    //ToDO
     boardDto.columns.map((column, index) => {
       const newColumn = column;
       if (!newColumn.title) newColumn.title = `coumn title ${index + 1}`;
