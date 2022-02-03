@@ -8,18 +8,38 @@ import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { ValidIdInterceptor } from './interceptors/valid-id.interceptor';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import fastifyMultipart from 'fastify-multipart';
 
 async function bootstrap() {
   const PORT = process.env.PORT || 4000;
 
   const USE_FASTIFY = process.env.USE_FASTIFY.toLowerCase() === 'true';
 
-  const app = USE_FASTIFY
-    ? await NestFactory.create<NestFastifyApplication>(
+  const createApp = async () => {
+    if (USE_FASTIFY) {
+      const adapter = new FastifyAdapter();
+
+      adapter.register(fastifyMultipart, {
+        limits: {
+          fieldNameSize: 100, // Max field name size in bytes
+          fieldSize: 1000000, // Max field value size in bytes
+          fields: 10, // Max number of non-file fields
+          fileSize: 100, // For multipart forms, the max file size
+          files: 1, // Max number of file fields
+          headerPairs: 2000, // Max number of header key=>value pairs
+        },
+      });
+
+      return await NestFactory.create<NestFastifyApplication>(
         AppModule,
-        new FastifyAdapter()
-      )
-    : await NestFactory.create(AppModule);
+        adapter
+      );
+    } else {
+      return await NestFactory.create(AppModule);
+    }
+  };
+
+  const app = await createApp();
 
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new ValidIdInterceptor());

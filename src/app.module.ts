@@ -19,7 +19,7 @@ import configORM from './ormconfig';
     BoardsModule,
     TasksModule,
     AuthModule,
-    ConfigModule.forRoot({ envFilePath: '.env' }),
+    ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
     WinstonModule.forRoot(configWinston),
     TypeOrmModule.forRoot(configORM),
     FileModule,
