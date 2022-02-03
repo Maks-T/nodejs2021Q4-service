@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { TaskSheme } from 'src/resources/tasks/shemes/task.sheme';
 import { ColumnSheme } from './column.sheme';
 
 export class BoardSheme {

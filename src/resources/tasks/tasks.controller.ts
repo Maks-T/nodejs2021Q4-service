@@ -17,7 +17,6 @@ import { TaskDto } from './dto/task.dto';
 import { BoardsService } from '../boards/boards.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { OmitType } from '@nestjs/mapped-types';
 import { TaskSheme } from './shemes/task.sheme';
 
 @ApiTags('Tasks')

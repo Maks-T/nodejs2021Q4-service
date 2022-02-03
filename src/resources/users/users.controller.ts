@@ -16,13 +16,7 @@ import { UserDto } from './dto/user.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserSheme } from './shemes/user.sheme';
-//import { UserResDto } from './dto/user-res.dto';
 
-interface IAnimal {
-  age: number;
-  eat(): void;
-  speak(): string;
-}
 
 @ApiTags('Users')
 @Controller('users')

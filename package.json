@@ -16,6 +16,8 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
+    "test:load-fastify": "k6.exe run -e APP_TYPE=Fastify load-testing-K6/script.js",
+    "test:load-express": "k6.exe run -e APP_TYPE=Express load-testing-K6/script.js",
     "typeorm": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts"
   },
   "dependencies": {
