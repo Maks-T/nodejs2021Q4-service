@@ -15,20 +15,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import storageOptions from './storage.config';
 import { ApiTags } from '@nestjs/swagger';
-import { FastifyFileInterceptor } from './fastify-files-interceptor';
 
-import * as dotenv from 'dotenv';
-import { FileInterceptor as ExpressFileInterceptor } from '@nestjs/platform-express';
-
-dotenv.config({
-  path: path.join(__dirname, './../../../.env'),
-});
-
-const USE_FASTIFY = process.env.USE_FASTIFY.toLowerCase() === 'true';
-
-const FileInterceptor = USE_FASTIFY
-  ? FastifyFileInterceptor
-  : ExpressFileInterceptor;
+import { FileInterceptor, USE_FASTIFY } from './file.interceptor';
 
 @ApiTags('File')
 @Controller('file')

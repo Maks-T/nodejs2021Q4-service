@@ -10,9 +10,23 @@ import {
 import { Observable } from 'rxjs';
 import FastifyMulter from 'fastify-multer';
 import { Options, Multer } from 'multer';
+import { FileInterceptor as ExpressFileInterceptor } from '@nestjs/platform-express';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+
+dotenv.config({
+  path: path.join(__dirname, './../../../.env'),
+});
+
+export const USE_FASTIFY = process.env.USE_FASTIFY
+  ? process.env.USE_FASTIFY.toLowerCase() === 'true'
+  : false;
+
+console.log('interc  ', process.env.USE_FASTIFY);
 
 type MulterInstance = any;
-export function FastifyFileInterceptor(
+
+function FastifyFileInterceptor(
   fieldName: string,
   localOptions: Options
 ): Type<NestInterceptor> {
@@ -53,3 +67,7 @@ export function FastifyFileInterceptor(
   const Interceptor = mixin(MixinInterceptor);
   return Interceptor as Type<NestInterceptor>;
 }
+
+export const FileInterceptor = USE_FASTIFY
+  ? FastifyFileInterceptor
+  : ExpressFileInterceptor;

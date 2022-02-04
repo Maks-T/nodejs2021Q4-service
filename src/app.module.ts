@@ -15,13 +15,13 @@ import configORM from './ormconfig';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
+    WinstonModule.forRoot(configWinston),
+    TypeOrmModule.forRoot(configORM),
     UsersModule,
     BoardsModule,
     TasksModule,
     AuthModule,
-    ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
-    WinstonModule.forRoot(configWinston),
-    TypeOrmModule.forRoot(configORM),
     FileModule,
   ],
   controllers: [AppController],

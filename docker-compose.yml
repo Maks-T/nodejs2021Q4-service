@@ -11,6 +11,7 @@ services:
     volumes:
       - ./logs:/usr/app/logs
       - ./src:/usr/app/src
+      - ./uploads:/usr/app/uploads
     restart: always
     environment:
       PORT: ${PORT}

@@ -17,7 +17,6 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserSheme } from './shemes/user.sheme';
 
-
 @ApiTags('Users')
 @Controller('users')
 @UseGuards(JwtAuthGuard)

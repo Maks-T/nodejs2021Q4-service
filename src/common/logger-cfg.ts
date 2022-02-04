@@ -1,4 +1,3 @@
-import { level } from 'winston';
 import * as winston from 'winston';
 
 const levels = {
@@ -7,7 +6,7 @@ const levels = {
   info: 2,
 };
 
-const levelApp = <level>Object.keys(levels)[Number(process.env.LOG_LEVEL)];
+const levelApp = Object.keys(levels)[Number(process.env.LOG_LEVEL)];
 
 const colors = {
   error: 'red',

@@ -13,7 +13,9 @@ import fastifyMultipart from 'fastify-multipart';
 async function bootstrap() {
   const PORT = process.env.PORT || 4000;
 
-  const USE_FASTIFY = process.env.USE_FASTIFY.toLowerCase() === 'true';
+  const USE_FASTIFY = process.env.USE_FASTIFY
+    ? process.env.USE_FASTIFY.toLowerCase() === 'true'
+    : false;
 
   const createApp = async () => {
     if (USE_FASTIFY) {
