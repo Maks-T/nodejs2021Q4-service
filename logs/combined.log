@@ -12,3 +12,11 @@
 {"level":"error","message":"Unhandled rejection TypeError: Cannot read properties of undefined (reading 'toLowerCase')","timestamp":"2022-02-04 10:16:58:1658"}
 {"level":"error","message":"Unhandled rejection TypeError: Cannot read properties of undefined (reading 'toLowerCase')","timestamp":"2022-02-04 10:18:53:1853"}
 {"level":"warn","message":"Method: POST, URl: /file, query: {}, body: {}, statusCode: 401, exeption : The user is not logged in","timestamp":"2022-02-04 10:21:02:212"}
+{"level":"warn","message":"Method: POST, URl: /file, query: {}, body: {}, statusCode: 401, exeption : The user is not logged in","timestamp":"2022-02-04 10:23:04:234"}
+{"level":"warn","message":"Method: POST, URl: /file, query: {}, body: {}, statusCode: 401, exeption : The user is not logged in","timestamp":"2022-02-04 10:23:07:237"}
+{"level":"info","message":"Method: GET, URl: /users, query: {}, body: {\"name\":\"admin\",\"login\":\"admin4\",\"password\":\"admin\"}, statusCode: 200, exeption : none","timestamp":"2022-02-04 10:23:21:2321"}
+{"level":"info","message":"Method: POST, URl: /file, query: {}, body: {}, statusCode: 200, exeption : none","timestamp":"2022-02-04 10:23:34:2334"}
+{"level":"warn","message":"Method: GET, URl: /file/1643970214678.PNG, query: {}, body: {}, statusCode: 401, exeption : The user is not logged in","timestamp":"2022-02-04 10:23:43:2343"}
+{"level":"info","message":"Method: GET, URl: /file/1643970214678.PNG, query: {}, body: {}, statusCode: 200, exeption : none","timestamp":"2022-02-04 10:24:23:2423"}
+{"level":"info","message":"Method: GET, URl: /users, query: {}, body: {\"name\":\"admin\",\"login\":\"admin4\",\"password\":\"admin\"}, statusCode: 200, exeption : none","timestamp":"2022-02-04 10:41:45:4145"}
+{"level":"info","message":"Method: GET, URl: /users/1347cf7e-04d8-4d6b-b979-eeeff110b3ed, query: {}, body: {\"name\":\"admin\",\"login\":\"admin4\",\"password\":\"admin\"}, statusCode: 200, exeption : none","timestamp":"2022-02-04 10:41:51:4151"}

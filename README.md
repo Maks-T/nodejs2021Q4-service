@@ -8,9 +8,9 @@
 
 ## Before you start, you must:
 
-- `git clone https://github.com/Maks-T/nodejs2021Q4-service/tree/task-9-authentication-JWT` - clones the repository ;
+- `git clone https://github.com/Maks-T/nodejs2021Q4-service/tree/task-10-nestjs` - clones the repository ;
 - `cd nodejs2021Q4-service` - nodejs2021Q4-service;
-- `git checkout task-9-authentication-JWT` - select the `task-9-authentication-JWT` branch;
+- `git checkout task-10-nestjs` - select the `task-10-nestjs` branch;
 
 ## Launch the application, you must
 
@@ -44,77 +44,362 @@ To run all tests without
 
 ## Andpoints
 
-### `/users`
+### Users `/users`
 
-<details>
-  <summary>GET /users - get all users (remove password from response)</summary>
-
-`Example response`
-
-```javascript
-[
-  {
-    id: '687a13d9-c1e9-4348-adb8-8f7280b901e9',
-    name: 'Maxim',
-    login: 'Max-T',
-  },
-];
-```
-
-</details>
-<details>
-  <summary>GET /users/:userId - get the user by id (ex. “/users/687a13d9-c1e9-4348-adb8-8f7280b901e9”) (remove password from response)</summary>   
+  <details>
+    <summary>GET /users - get all users (remove password from response)</summary>
   
-  `Example response`
-  ```javascript    
+  `Example response StatusCode == 200`
+  
+  ```javascript
+  [
     {
-      "id": "687a13d9-c1e9-4348-adb8-8f7280b901e9",
-      "name": "Maxim",
-      "login": "Max-T"
-    }    
-  ```  
-</details>
-
-<details>
-  <summary>POST /users - create user</summary>
-
-`Example request`
-
-```javascript
-[
+      id: '687a13d9-c1e9-4348-adb8-8f7280b901e9',
+      name: 'Maxim',
+      login: 'Max-T',
+    },
+  ];
+  ```
+  
+  </details>
+  <details>
+    <summary>GET /users/:userId - get the user by id (ex. “/users/687a13d9-c1e9-4348-adb8-8f7280b901e9”) (remove password from response)</summary>   
+    
+    `Example response StatusCode == 200`
+    ```javascript    
+      {
+        id: "687a13d9-c1e9-4348-adb8-8f7280b901e9",
+        name: "Maxim",
+        login: "Max-T"
+      }    
+    ```  
+  </details>
+  
+  <details>
+    <summary>POST /users - create user</summary>
+  
+  `Example request`
+  
+  ```javascript
+  
   {
     name: 'Maxim',
     login: 'Max-T',
     password: 'P123*',
   },
-];
-```
-
-`Example response`
-
-```javascript
-[
+  
+  ```
+  
+  `Example response StatusCode == 201`
+  
+  ```javascript
+  [
+    {
+      id: '687a13d9-c1e9-4348-adb8-8f7280b901e9',
+      name: 'Maxim',
+      login: 'Max-T',
+    },
+  ];
+  ```
+  
+  </details>
+  
+  <details>
+    <summary>PUT /users/:userId - update user</summary>
+  
+  `Example request`
+  
+  ```javascript
+  [
+    {
+      name: 'Maximus',
+      login: 'Max-T',
+      password: 'P33333*',
+    },
+  ];
+  ```
+  
+  `Example response StatusCode == 200`
+  
+  ```javascript
+  [
+    {
+      id: '687a13d9-c1e9-4348-adb8-8f7280b901e9',
+      name: 'Maximus',
+      login: 'Max-T',
+    },
+  ];
+  ```
+  
+  </details>
+  
+  <details>
+    <summary>DELETE /users/:userId - delete user</summary>
+  
+  `Example response StatusCode == 204`
+  
+  </details>
+  
+### Boards `/boards`
+  
+  <details>
+    <summary>GET /boards - get all boards</summary>
+  
+  `Example response StatusCode == 200`
+  
+  ```javascript
   {
-    id: '687a13d9-c1e9-4348-adb8-8f7280b901e9',
-    name: 'Maxim',
-    login: 'Max-T',
-  },
-];
-```
-
-</details>
-
-PUT /users/:userId - update user
-DELETE /users/:userId - delete user
-Board (/boards route)
-GET /boards - get all boards
-GET /boards/:boardId - get the board by id
-POST /boards - create board
-PUT /boards/:boardId - update board
-DELETE /boards/:boardId - delete board
-Task (boards/:boardId/tasks route)
-GET boards/:boardId/tasks - get all tasks
-GET boards/:boardId/tasks/:taskId - get the task by id
-POST boards/:boardId/tasks - create task
-PUT boards/:boardId/tasks/:taskId - update task
-DELETE boards/:boardId/tasks/:taskId - delete task
+    id: "aa25fe8b-f560-479d-ad70-e400cbb82ef6",
+    title: "Board Title",
+    columns: [
+      {
+        id: "445e4eb2-8af6-4e74-9d02-c420d29086f4",
+        title: "First column",
+        order: 1,
+        tasks: []
+      },
+      {
+        id: "aa25fe8b-f560-479d-ad70-e400cbb82ef6",
+        title: "Second column",
+        order: 2,
+        tasks: []
+      }
+    ]
+  }
+  ```
+  
+  </details>
+  <details>
+    <summary>GET /boards/:boardId - get the board by id</summary>   
+    
+    `Example response StatusCode == 200`
+    ```javascript    
+      {
+        id: "aa25fe8b-f560-479d-ad70-e400cbb82ef6",
+        title: "Board Title",
+        columns: [
+          {
+            id: "445e4eb2-8af6-4e74-9d02-c420d29086f4",
+            title: "First column",
+            order: 1,
+            tasks: []
+          },
+          {
+            id: "aa25fe8b-f560-479d-ad70-e400cbb82ef6",
+            title: "Second column",
+            order: 2,
+            tasks: []
+          }
+        ]
+      }  
+    ```  
+  </details>
+  
+  <details>
+    <summary>POST /boards - create board</summary>
+  
+  `Example request`
+  
+  ```javascript
+  {
+    title: "Board Title",
+    columns: [
+      {
+        title: "First column",
+        order: 1
+      },
+      {
+        title: "Second column",
+        order: 2
+      }
+    ]
+  }
+  ```
+  
+  `Example response StatusCode == 201`
+  
+  ```javascript
+  {
+    id: "aa25fe8b-f560-479d-ad70-e400cbb82ef6",
+    title: "Board Title",
+    columns: [
+      {
+        id: "445e4eb2-8af6-4e74-9d02-c420d29086f4",
+        title: "First column",
+        order: 1,
+        tasks: []
+      },
+      {
+        id: "aa25fe8b-f560-479d-ad70-e400cbb82ef6",
+        title: "Second column",
+        order: 2,
+        tasks: []
+      }
+    ]
+  }
+  ```
+  
+  </details>
+  
+  <details>
+    <summary>PUT /boards/:boardId - update board</summary>
+  
+  `Example request`
+  
+  ```javascript
+  {
+    title: "Board Title",
+    columns: [
+      {
+        title: "First column new",
+        order: 1
+      },
+      {
+        title: "Second column new",
+        order: 2
+      }
+    ]
+  }
+  ```
+  
+  `Example response StatusCode == 200`
+  
+  ```javascript
+  {
+    id: "aa25fe8b-f560-479d-ad70-e400cbb82ef6",
+    title: "Board Title",
+    columns: [
+      {
+        id: "445e4eb2-8af6-4e74-9d02-c420d29086f4",
+        title: "First column new",
+        order: 1,
+        tasks: []
+      },
+      {
+        id: "aa25fe8b-f560-479d-ad70-e400cbb82ef6",
+        title: "Second column new",
+        order: 2,
+        tasks: []
+      }
+    ]
+  }
+  ```
+  
+  </details>
+  
+  <details>
+    <summary>DELETE /boards/:boardId - delete board</summary>
+  
+  `Example response StatusCode == 204`
+  
+  </details>
+  
+### Tasks `boards/:boardId/tasks`
+  
+  <details>
+    <summary>GET boards/:boardId/tasks - get all tasks</summary>
+  
+  `Example response StatusCode == 200`
+  
+  ```javascript
+  [
+    {
+      id: 'd1734b2a-c52b-47f5-8c0b-8cbede5f740d',
+      title: 'Task Title',
+      order: 1,
+      description: 'Task Description',
+      userId: 'fc570e9c-9392-4c4a-bbf8-4e5c64703bd6',
+      columnId: 'bb29cb1d-03fc-449b-a576-a08c07e23159',
+      boardId: 'bb29cb1d-03fc-449b-a576-a08c07e23159',
+    },
+  ];
+  ```
+  
+  </details>
+  <details>
+    <summary>GET boards/:boardId/tasks/:taskId - get the task by id</summary>   
+    
+    `Example response StatusCode == 200`
+    ```javascript    
+      {
+        id: "d1734b2a-c52b-47f5-8c0b-8cbede5f740d",
+        title: "Task Title",
+        order: 1,
+        description: "Task Description",
+        userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6" || null,
+        columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159"  || null,
+        boardId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
+  } 
+    ```  
+  </details>
+  
+  <details>
+    <summary>POST boards/:boardId/tasks - create task</summary>
+  
+  `Example request`
+  
+  ```javascript
+  
+  {
+    title: "Task Title",
+    order: 1,
+    description: "Task Description",
+    userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
+    columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
+  }
+  
+  ```
+  
+  `Example response StatusCode == 201`
+  
+  ```javascript
+  {
+    id: "d1734b2a-c52b-47f5-8c0b-8cbede5f740d",
+    title: "Task Title",
+    order: 1,
+    description: "Task Description",
+    userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
+    columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159",
+    boardId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
+  }
+  ```
+  
+  </details>
+  
+  <details>
+    <summary>PUT boards/:boardId/tasks/:taskId - update task</summary>
+  
+  `Example request`
+  
+  ```javascript
+  {
+    title: "Task Title",
+    order: 1,
+    description: "Task Description",
+    userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
+    columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
+  }
+  ```
+  
+  `Example response StatusCode == 200`
+  
+  ```javascript
+  {
+    id: "d1734b2a-c52b-47f5-8c0b-8cbede5f740d",
+    title: "Task Title",
+    order: 1,
+    description: "Task Description",
+    userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
+    columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159",
+    boardId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
+  }
+  ```
+  
+  </details>
+  
+  <details>
+    <summary>DELETE boards/:boardId/tasks/:taskId - delete task</summary>
+  
+  `Example response StatusCode == 204`
+  
+  </details>
