@@ -454,7 +454,9 @@ In response, you will get an error:
   </details>
 
 ### File `/file`
-
+   
+   ![File-load-screen](https://user-images.githubusercontent.com/28530542/152523862-7f99c885-3654-45c1-ae5e-bb2de9e64ac8.PNG)
+   
   <details>
     <summary>POST file/ - send file</summary>
   
