@@ -26,7 +26,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
           )}`;
 
     response.exeption = message;
-    const USE_FASTIFY = process.env.USE_FASTIFY.toLowerCase() === 'true';
+    const USE_FASTIFY =
+      !!process.env.USE_FASTIFY &&
+      process.env.USE_FASTIFY.toLowerCase() === 'true';
 
     const resBody = {
       statusCode,

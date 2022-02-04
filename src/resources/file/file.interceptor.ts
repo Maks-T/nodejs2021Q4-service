@@ -18,11 +18,10 @@ dotenv.config({
   path: path.join(__dirname, './../../../.env'),
 });
 
-export const USE_FASTIFY = process.env.USE_FASTIFY
-  ? process.env.USE_FASTIFY.toLowerCase() === 'true'
-  : false;
+export const USE_FASTIFY =
+  !!process.env.USE_FASTIFY && process.env.USE_FASTIFY.toLowerCase() === 'true'; 
 
-console.log('interc  ', process.env.USE_FASTIFY);
+console.log('             USE_FASTIFY                  ', USE_FASTIFY);
 
 type MulterInstance = any;
 

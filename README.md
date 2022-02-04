@@ -41,3 +41,80 @@ To run all tests without
 - run: `npm run typeorm -- migration:run`
 
 - revert: `npm run typeorm -- migration:revert`
+
+## Andpoints
+
+### `/users`
+
+<details>
+  <summary>GET /users - get all users (remove password from response)</summary>
+
+`Example response`
+
+```javascript
+[
+  {
+    id: '687a13d9-c1e9-4348-adb8-8f7280b901e9',
+    name: 'Maxim',
+    login: 'Max-T',
+  },
+];
+```
+
+</details>
+<details>
+  <summary>GET /users/:userId - get the user by id (ex. “/users/687a13d9-c1e9-4348-adb8-8f7280b901e9”) (remove password from response)</summary>   
+  
+  `Example response`
+  ```javascript    
+    {
+      "id": "687a13d9-c1e9-4348-adb8-8f7280b901e9",
+      "name": "Maxim",
+      "login": "Max-T"
+    }    
+  ```  
+</details>
+
+<details>
+  <summary>POST /users - create user</summary>
+
+`Example request`
+
+```javascript
+[
+  {
+    name: 'Maxim',
+    login: 'Max-T',
+    password: 'P123*',
+  },
+];
+```
+
+`Example response`
+
+```javascript
+[
+  {
+    id: '687a13d9-c1e9-4348-adb8-8f7280b901e9',
+    name: 'Maxim',
+    login: 'Max-T',
+  },
+];
+```
+
+</details>
+
+PUT /users/:userId - update user
+DELETE /users/:userId - delete user
+Board (/boards route)
+GET /boards - get all boards
+GET /boards/:boardId - get the board by id
+POST /boards - create board
+PUT /boards/:boardId - update board
+DELETE /boards/:boardId - delete board
+Task (boards/:boardId/tasks route)
+GET boards/:boardId/tasks - get all tasks
+GET boards/:boardId/tasks/:taskId - get the task by id
+POST boards/:boardId/tasks - create task
+PUT boards/:boardId/tasks/:taskId - update task
+DELETE boards/:boardId/tasks/:taskId - delete task

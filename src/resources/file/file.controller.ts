@@ -8,6 +8,7 @@ import {
   Post,
   Res,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 
@@ -17,9 +18,11 @@ import storageOptions from './storage.config';
 import { ApiTags } from '@nestjs/swagger';
 
 import { FileInterceptor, USE_FASTIFY } from './file.interceptor';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('File')
 @Controller('file')
+@UseGuards(JwtAuthGuard)
 export class FileController {
   @Post('')
   @HttpCode(HttpStatus.OK)
