@@ -71,8 +71,8 @@ In response, you will get an error:
   ```javascript
   
   {    
-    login: 'Max-T',
-    password: 'P123*',
+    login: 'admin',
+    password: 'admin',
   },
   
   ```
@@ -485,8 +485,9 @@ In response, you will get an error:
 [Grafana k6](https://k6.io/) is used for loading tests. The test script and test reports are in the `/load-testing-K6` folder.
 
 ### Fastify test table:
+
 ![Fastify-test-table](https://user-images.githubusercontent.com/28530542/152580679-71543ed9-8738-4b0b-a8d4-a217def40d42.PNG)
 
 ### Express test table:
-![Express-test-table](https://user-images.githubusercontent.com/28530542/152580877-0e3ecd38-c19a-42da-8990-9d1c8d55733a.PNG)
 
+![Express-test-table](https://user-images.githubusercontent.com/28530542/152580877-0e3ecd38-c19a-42da-8990-9d1c8d55733a.PNG)
