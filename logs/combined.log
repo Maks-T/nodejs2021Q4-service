@@ -20,3 +20,6 @@
 {"level":"info","message":"Method: GET, URl: /file/1643970214678.PNG, query: {}, body: {}, statusCode: 200, exeption : none","timestamp":"2022-02-04 10:24:23:2423"}
 {"level":"info","message":"Method: GET, URl: /users, query: {}, body: {\"name\":\"admin\",\"login\":\"admin4\",\"password\":\"admin\"}, statusCode: 200, exeption : none","timestamp":"2022-02-04 10:41:45:4145"}
 {"level":"info","message":"Method: GET, URl: /users/1347cf7e-04d8-4d6b-b979-eeeff110b3ed, query: {}, body: {\"name\":\"admin\",\"login\":\"admin4\",\"password\":\"admin\"}, statusCode: 200, exeption : none","timestamp":"2022-02-04 10:41:51:4151"}
+{"level":"info","message":"Method: POST, URl: /login/, query: {}, body: {\"login\":\"admin\",\"password\":\"admin\"}, statusCode: 200, exeption : none","timestamp":"2022-02-04 11:27:55:2755"}
+{"level":"info","message":"Method: GET, URl: /users/1347cf7e-04d8-4d6b-b979-eeeff110b3ed, query: {}, body: {\"name\":\"admin\",\"login\":\"admin4\",\"password\":\"admin\"}, statusCode: 200, exeption : none","timestamp":"2022-02-04 11:28:38:2838"}
+{"level":"warn","message":"Method: GET, URl: /users/1347cf7e-04d8-4d6b-b979-eeeff110b3ed, query: {}, body: {\"name\":\"admin\",\"login\":\"admin4\",\"password\":\"admin\"}, statusCode: 401, exeption : The user is not logged in","timestamp":"2022-02-04 11:28:49:2849"}

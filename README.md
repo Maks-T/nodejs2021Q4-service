@@ -454,9 +454,7 @@ In response, you will get an error:
   </details>
 
 ### File `/file`
-   
-   ![File-load-screen](https://user-images.githubusercontent.com/28530542/152523862-7f99c885-3654-45c1-ae5e-bb2de9e64ac8.PNG)
-   
+
   <details>
     <summary>POST file/ - send file</summary>
   
@@ -479,3 +477,9 @@ In response, you will get an error:
   `Example response StatusCode == 200`
 
 </details>
+
+![File-load-screen](https://user-images.githubusercontent.com/28530542/152523862-7f99c885-3654-45c1-ae5e-bb2de9e64ac8.PNG)
+
+## Loading test
+
+[Grafana k6](https://k6.io/) is used for loading tests. The test script and test reports are in the `/load-testing-K6` folder.
