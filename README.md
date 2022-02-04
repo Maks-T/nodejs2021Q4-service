@@ -17,6 +17,8 @@
 - `docker-compose up --build`
 - wait a bit. The application will restart several times. The database will be created. Migrations will run automatically.
 - After starting the app on port (4000 as default) you can open
+- To work correctly, you need to log in.
+  Learn more: route - `/login`
 
 ## Installing NPM modules
 
@@ -44,6 +46,47 @@ To run all tests without
 
 ## Andpoints
 
+If you did not pass the header with the token to the routes when contacting them
+
+```javascript
+    "Authorization": "Bearer ${token}"
+```
+
+In response, you will get an error:
+
+```javascript
+  {
+    "statusCode": 401,
+    "message": "The user is not logged in"
+  }
+```
+
+### Authorization `/users`
+
+  <details>
+    <summary>POST /login - get all users (remove password from response)</summary>
+  
+  `Example request`
+  
+  ```javascript
+  
+  {    
+    login: 'Max-T',
+    password: 'P123*',
+  },
+  
+  ```
+  
+  `Example response StatusCode == 200`
+  
+  ```javascript
+  {
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMzQ3Y2Y3ZS0wNGQ4LTRkNmItYjk3OS1lZWVmZjExMGIzZWQiLCJsb2dpbiI6ImFkbWluIiwiaWF0IjoxNjQzOTc0MDc1LCJleHAiOjE2NDQwNjA0NzV9.wKxuVNlqh1_Is8p1gdnLpYRjVqNznoxYSnOl1ukMmCU"
+  }
+  ```
+  
+  </details>
+
 ### Users `/users`
 
   <details>
@@ -66,13 +109,15 @@ To run all tests without
     <summary>GET /users/:userId - get the user by id (ex. “/users/687a13d9-c1e9-4348-adb8-8f7280b901e9”) (remove password from response)</summary>   
     
     `Example response StatusCode == 200`
-    ```javascript    
+
+    ```javascript
       {
         id: "687a13d9-c1e9-4348-adb8-8f7280b901e9",
         name: "Maxim",
         login: "Max-T"
-      }    
-    ```  
+      }
+    ```
+
   </details>
   
   <details>
@@ -173,6 +218,7 @@ To run all tests without
     <summary>GET /boards/:boardId - get the board by id</summary>   
     
     `Example response StatusCode == 200`
+    
     ```javascript    
       {
         id: "aa25fe8b-f560-479d-ad70-e400cbb82ef6",
@@ -320,7 +366,8 @@ To run all tests without
     <summary>GET boards/:boardId/tasks/:taskId - get the task by id</summary>   
     
     `Example response StatusCode == 200`
-    ```javascript    
+
+    ```javascript
       {
         id: "d1734b2a-c52b-47f5-8c0b-8cbede5f740d",
         title: "Task Title",
@@ -329,17 +376,19 @@ To run all tests without
         userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6" || null,
         columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159"  || null,
         boardId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
-  } 
-    ```  
+
+}
+
+````
+
   </details>
-  
+
   <details>
     <summary>POST boards/:boardId/tasks - create task</summary>
-  
+
   `Example request`
-  
+
   ```javascript
-  
   {
     title: "Task Title",
     order: 1,
@@ -347,23 +396,23 @@ To run all tests without
     userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
     columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
   }
-  
-  ```
-  
-  `Example response StatusCode == 201`
-  
-  ```javascript
-  {
-    id: "d1734b2a-c52b-47f5-8c0b-8cbede5f740d",
-    title: "Task Title",
-    order: 1,
-    description: "Task Description",
-    userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
-    columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159",
-    boardId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
-  }
-  ```
-  
+
+````
+
+`Example response StatusCode == 201`
+
+```javascript
+{
+  id: "d1734b2a-c52b-47f5-8c0b-8cbede5f740d",
+  title: "Task Title",
+  order: 1,
+  description: "Task Description",
+  userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
+  columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159",
+  boardId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
+}
+```
+
   </details>
   
   <details>
@@ -403,3 +452,28 @@ To run all tests without
   `Example response StatusCode == 204`
   
   </details>
+
+### File `/file`
+
+  <details>
+    <summary>POST file/ - send file</summary>
+  
+  `Example response StatusCode == 200`
+
+```javascript
+
+  {
+     message: "The 1.PNG was successfully uploaded to the server! To download this file, use the link 'localhost:4000/file/1643970214678.PNG'",
+     linkForDownload: "localhost:4000/file/1643970214678.PNG"
+  }
+
+```
+
+</details>
+
+  <details>
+    <summary>POST file/:filename - get file</summary>
+  
+  `Example response StatusCode == 200`
+
+</details>
