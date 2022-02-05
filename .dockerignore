@@ -1,0 +1,11 @@
+node_modules
+.vscode
+dist
+.gitignore
+.dockerignore
+database
+Dockerfile
+docker-compose.yml
+test
+postgresdata
+uploads
