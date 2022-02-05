@@ -60,6 +60,7 @@ In response, you will get an error:
     "message": "The user is not logged in"
   }
 ```
+![Auth-screen](https://user-images.githubusercontent.com/28530542/152631653-128f67b4-f693-4294-9e53-1f14b57e3f7d.PNG)
 
 ### Authorization `/users`
 
