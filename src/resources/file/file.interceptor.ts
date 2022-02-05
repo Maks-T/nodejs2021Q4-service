@@ -19,7 +19,7 @@ dotenv.config({
 });
 
 export const USE_FASTIFY =
-  !!process.env.USE_FASTIFY && process.env.USE_FASTIFY.toLowerCase() === 'true'; 
+  !!process.env.USE_FASTIFY && process.env.USE_FASTIFY.toLowerCase() === 'true';
 
 console.log('             USE_FASTIFY                  ', USE_FASTIFY);
 

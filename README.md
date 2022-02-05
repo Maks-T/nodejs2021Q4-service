@@ -60,6 +60,7 @@ In response, you will get an error:
     "message": "The user is not logged in"
   }
 ```
+
 ![Auth-screen](https://user-images.githubusercontent.com/28530542/152631653-128f67b4-f693-4294-9e53-1f14b57e3f7d.PNG)
 
 ### Authorization `/users`
@@ -454,6 +455,39 @@ In response, you will get an error:
 
   </details>
 
+##
+
+### Common for all: Users, Boards, Tasks
+
+  </details>
+
+  <details>
+    <summary>Possible responses with errors</summary>
+
+`Example response StatusCode == 400`
+
+```javascript
+
+  {
+    statusCode: 400,
+    message: "UserId= 1347cf7e-04d8-4d6b-b979-eeeff110b3d is not valid"
+  }
+
+```
+
+`Example response StatusCode == 404`
+
+```javascript
+
+  {
+    statusCode: 400,
+    message: "User with id = 1347cf7e-04d8-4d6b-b979-eeeff110b3ec was not found"
+  }
+
+```
+
+  </details>
+
 ### File `/file`
 
   <details>
@@ -472,7 +506,7 @@ In response, you will get an error:
 
   </details>
   
-    <details>
+  <details>
       <summary>POST file/:filename - get file</summary>
   
     `Example response StatusCode == 200`

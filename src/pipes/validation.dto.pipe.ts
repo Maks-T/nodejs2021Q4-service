@@ -28,7 +28,7 @@ export class ValidationDtoPipe implements PipeTransform<Dto> {
           `${err.property} - ${Object.values(err.constraints).join(', ')}`
       );
       throw new BadRequestException(
-        `Validation Exeprion: ${messages.join('/ ')}`
+        `Validation Exeption: ${messages.join('/ ')}`
       );
     }
 
