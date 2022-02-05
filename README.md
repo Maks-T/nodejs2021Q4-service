@@ -377,27 +377,27 @@ In response, you will get an error:
         columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159"  || null,
         boardId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
 
-}
+      }
 
-````
+    ```
 
   </details>
 
   <details>
     <summary>POST boards/:boardId/tasks - create task</summary>
 
-  `Example request`
+`Example request`
 
-  ```javascript
-  {
-    title: "Task Title",
-    order: 1,
-    description: "Task Description",
-    userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
-    columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
-  }
+```javascript
+{
+  title: "Task Title",
+  order: 1,
+  description: "Task Description",
+  userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
+  columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
+}
 
-  ```
+```
 
 `Example response StatusCode == 201`
 
@@ -418,38 +418,38 @@ In response, you will get an error:
   <details>
     <summary>PUT boards/:boardId/tasks/:taskId - update task</summary>
 
-  `Example request`
+`Example request`
 
-  ```javascript
-  {
-    title: "Task Title",
-    order: 1,
-    description: "Task Description",
-    userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
-    columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
-  }
-  ```
+```javascript
+{
+  title: "Task Title",
+  order: 1,
+  description: "Task Description",
+  userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
+  columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
+}
+```
 
-  `Example response StatusCode == 200`
+`Example response StatusCode == 200`
 
-  ```javascript
-  {
-    id: "d1734b2a-c52b-47f5-8c0b-8cbede5f740d",
-    title: "Task Title",
-    order: 1,
-    description: "Task Description",
-    userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
-    columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159",
-    boardId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
-  }
-  ```
+```javascript
+{
+  id: "d1734b2a-c52b-47f5-8c0b-8cbede5f740d",
+  title: "Task Title",
+  order: 1,
+  description: "Task Description",
+  userId: "fc570e9c-9392-4c4a-bbf8-4e5c64703bd6",
+  columnId: "bb29cb1d-03fc-449b-a576-a08c07e23159",
+  boardId: "bb29cb1d-03fc-449b-a576-a08c07e23159"
+}
+```
 
   </details>
 
   <details>
     <summary>DELETE boards/:boardId/tasks/:taskId - delete task</summary>
 
-  `Example response StatusCode == 204`
+`Example response StatusCode == 204`
 
   </details>
 
@@ -458,7 +458,7 @@ In response, you will get an error:
   <details>
     <summary>POST file/ - send file</summary>
 
-  `Example response StatusCode == 200`
+`Example response StatusCode == 200`
 
 ```javascript
 
@@ -469,14 +469,14 @@ In response, you will get an error:
 
 ```
 
-</details>
-
-  <details>
-    <summary>POST file/:filename - get file</summary>
-
-  `Example response StatusCode == 200`
-
-</details>
+  </details>
+  
+    <details>
+      <summary>POST file/:filename - get file</summary>
+  
+    `Example response StatusCode == 200`
+  
+  </details>
 
 ![File-load-screen](https://user-images.githubusercontent.com/28530542/152523862-7f99c885-3654-45c1-ae5e-bb2de9e64ac8.PNG)
 
@@ -491,4 +491,3 @@ In response, you will get an error:
 ### Express test table:
 
 ![Express-test-table](https://user-images.githubusercontent.com/28530542/152580877-0e3ecd38-c19a-42da-8990-9d1c8d55733a.PNG)
-````
